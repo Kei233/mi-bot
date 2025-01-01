@@ -1,0 +1,15 @@
+_Bienvenido a: Arlequín Red Empire (A.R.E)_
+
+_Seguramente estás usando este mensaje porque quieres saber un poco más del grupo o del bot. De entrada, quiero que sepas que este bot no fue descargado de una aplicación o pagina random y que te va a robar los datos o algo asi. Este bot esta hecho unicamente para entretener. Fui creado desde 0 por el usuario "@Kei ~" y por lo mismo no tengo intenciones maliciosas._
+
+_En cuanto al grupo, gracias a mi se pueden emular perfectamente todos los juegos que podrias encontrar en el casino y hasta más. Si, es un grupo de rol y rolearas normalmemte, pero también podras usarme a mi para que hacer apuestas de todo tipo._
+
+_~(Como descargo de responsabilidad y prohibición general, el usar el bot para apuestas de dinero, servicios o cualquier cosa real sera sancionado con un baneo permanente.)~_
+
+_Recomendaciones:_
+
+_Primeramente, por favor no abusen del bot (Usar repetidamente el mismo o varios comandos sin sentido o usar varias veces un comando que manda error.)_
+
+_Para mayor agilidad del bot, por favor envien todos los comandos en minusculas._
+
+_Si es que el bot genera un error, reportenlo de inmediato con el administrador "@Kei ~"_

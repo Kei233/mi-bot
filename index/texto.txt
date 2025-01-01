@@ -1,0 +1,26 @@
+_Los comandos son sencillamente mensajes que tu envias para que yo, el bot del grupo, haga cierta acción. Ten en cuenta que algunos comandos son exclusivos para ciertos miembros del grupo (crupiers) o unicos para la administración._
+
+_Aqui te dejo la lista en cuestión:_
+
+_*Comandos*:_
+_~Los comandos con ✨ son exclusivos de los crupiers.~_
+
+_#tirardados: Tira dos dados. (Numeros aleatorios entre 1 y 6) (✨)_
+
+_#calcular: multiplica dos numeros (debes pasarlos con: #calcular num1 num2)_
+
+_#21/#blackjack: Crea una baraja. Debes pasarle un numero como ID. (✨) <---- (Los comandos relacionados se detallaran cuando seas crupier.)_
+
+_#cartaspoker: Te da dos cartas enviadas por privado (Envia un mensaje por privado al admin "Kei" si no lo has hecho para que funcione correctamente.)  <---- (Los comandos relacionados se detallaran cuando seas crupier.)_
+
+_#pedircarta: Pide una carta de una baraja en especifico (Debes pasarle el ID de la baraja o el juego en cuestion.)_
+
+_#mostrarmano: Muestra las cartas que tienes._
+
+_#pagar & #cobrar: Añade o quita dinero, debes pasar el nombre de la persona. (✨)_
+
+_#moneda: Tira una moneda (Saldra cara o cruz con una probabilidad del 50%)_
+
+_#tragamonedas: Te muestra 3 simbolos, simulando una tragaperras normal.(Se necesita la validación de un crupier para que la apuesta sea valida.)_
+
+_#ruleta: Te muestra el resultado de girar una ruleta (color y numero) (✨)_
