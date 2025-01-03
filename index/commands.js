@@ -8,14 +8,14 @@ const path = require('node:path');
 const { registrarPersona, agregarCrupier, cargarRegistros, guardarRegistros, eliminarCrupier, eliminarRegistro, esCrupier } = require('./registro.js');
 const { mostrarCartasComunitarias } = require('./games/poker.js')
 const { exec } = require('child_process');
+const { ruletaRusa, girarBarril } = require('./games/ruletaRusa.js');
 
 async function handleCommands(message, client, admin, participantes) {
     try {
         const content = message.body.trim().toLowerCase(); // Contenido del mensaje
         const numero = message.author;
-        const part = participantes;
 
-        if(content.startsWith('#restart') || content.startsWith('#reset')) {
+        if(content.includes('#restart') || content.includes('#reset')) {
 
             if(!admin){ await message.reply('No tienes permisos y no deberias usar este comando.'); return;}
             if(admin){ await message.reply('_Reiniciando..._');}
@@ -31,11 +31,10 @@ async function handleCommands(message, client, admin, participantes) {
             }
             console.log(`stdout: ${stdout}`);
             console.log("Bot reiniciado con éxito");
-            message.reply('Reinicio exitoso.');
         });
     }
 
-    if (content.startsWith('@everyone') || content.startsWith('#all')) {
+    if (content.includes('@everyone') || content.includes('#all')) {
         try {
     
             // Obtén los participantes del grupo
@@ -56,14 +55,30 @@ async function handleCommands(message, client, admin, participantes) {
             message.reply('_Algo salió mal al etiquetar a todos._');
         }
     }
+
+        if(content.includes('#ficha')){
+            try {
+                const filePath = path.join(__dirname, 'texto3.txt');
+                const texto = fs.readFileSync(filePath, 'utf8');
+                await message.reply(texto);
+            } catch (error) {
+                console.error('Error al leer el archivo de texto:', error.message);
+                await message.reply('_Hubo un error al cargar los comandos._');
+            }
+        }
     
 
-        if(content.startsWith('#init')){
+        if(content.includes('#init')){
             message.reply("Lectura de comandos correcta.");
             console.log("info:", message);
         } //check
 
-        if (content.startsWith('#listacomandos')) {
+        if(content.includes('#callatehades')){
+
+            message.reply('Si, callate hades.');
+        }
+
+        if (content.includes('#listacomandos')) {
             try {
                 const filePath = path.join(__dirname, 'texto.txt');
                 const texto = fs.readFileSync(filePath, 'utf8');
@@ -74,21 +89,23 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if (content.startsWith('#registrar')) {
+        if (content.includes('#registrar')) {
             try {
                 const args = content.split(' ');
+                const indice = args.indexOf('#registrar');
                 if (args.length < 3) {
                     await message.reply('_Uso incorrecto. El formato es: #registrar nombre dinero_');
                     return;
                 }
 
-                const nombre = args.slice(1, -1).join(' '); 
-                const dinero = parseFloat(args[args.length - 1]);
+                const nombre = args[indice+1] 
+                const dinero = parseFloat(args[indice+2]);
 
-                if (isNaN(dinero) || dinero < 5000 || dinero > 15000) {
-                    await message.reply('_Por favor, proporciona una cantidad válida de dinero. (5000 a 15000)_');
+                if (isNaN(dinero) || dinero < 1000 || dinero > 15000) {
+                    await message.reply('_Por favor, proporciona una cantidad válida de dinero. (1000 a 15000)_');
                     return;
                 } 
+
                 registrarPersona(numero, nombre, dinero);
 
                 await message.reply(`_*Registro exitoso.* Nombre: ${nombre}, Dinero: ${dinero}._`);
@@ -97,14 +114,16 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if(content.startsWith('#deletepersona')){
+        if(content.includes('#deletepersona')){
         const args = content.split(' ');
-        const nombrepersona = args.slice(1).join(' ');
+        const indice = args.indexOf('#deletepersona');
+        const nombrepersona = args[indice+1];
+        const registros = cargarRegistros();
+        const nombre = registros.find(r => r.nombre === jugador);
     
-            if(!nombrepersona)
-                { message.reply('Por favor, proporcione el nombre del crupier.');}
-    
-    
+            if(!nombrepersona || !nombre)
+                { message.reply('Por favor, proporcione el nombre correcto de la persona.');}
+
             if (!admin) {
                     await message.reply('_No tienes permiso para agregar crupieres._');
                     return;
@@ -115,7 +134,7 @@ async function handleCommands(message, client, admin, participantes) {
             }
 
             
-        if (content.startsWith('#addcrupier')) {
+        if (content.includes('#addcrupier')) {
             const args = content.split(' ');
             const nombreCrupier = args.slice(1).join(' '); // El nombre puede ser compuesto
             
@@ -151,7 +170,7 @@ async function handleCommands(message, client, admin, participantes) {
             }
         }
 
-        if(content.startsWith('#deletecrupier')){
+        if(content.includes('#deletecrupier')){
         const args = content.split(' ');
         const nombreCrupier = args.slice(1).join(' ');
 
@@ -170,8 +189,14 @@ async function handleCommands(message, client, admin, participantes) {
         await message.reply(`${resultado}`);
 
         }
+
+        if(content.includes('#RuletaRusa')){
+
+
+
+        }
         
-        if (content.startsWith('#tirardados')) {
+        if (content.includes('#tirardados')) {
             if (!await esCrupier(message.author, admin)) {
                 await message.reply('_No tienes permiso para ejecutar este comando._');
                 return;
@@ -202,7 +227,7 @@ async function handleCommands(message, client, admin, participantes) {
 
         } //check
 
-        if (content.startsWith('#calcular')) {
+        if (content.includes('#calcular')) {
             const args = content.split(' ');
             if (args.length === 3) {
                 const num1 = parseFloat(args[1]);
@@ -218,7 +243,7 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if (content.startsWith('#21') || content.startsWith('#blackjack')) {
+        if (content.includes('#21') || content.includes('#blackjack')) {
 
             if (!await esCrupier(message.author, admin)) {
                 await message.reply('_No tienes permiso para ejecutar este comando._');
@@ -255,7 +280,7 @@ async function handleCommands(message, client, admin, participantes) {
             } 
         } //check
 
-        if (content.startsWith('#borrar')) {
+        if (content.includes('#borrar')) {
             const args = content.split(' ');
             const id = parseInt(args[1]);
             
@@ -280,7 +305,7 @@ async function handleCommands(message, client, admin, participantes) {
         } //check
 
 
-        if (content.startsWith('#adm-borrarall')) {
+        if (content.includes('#adm-borrarall')) {
             
             if (!admin) {
                 await message.reply('_No tienes permiso para ejecutar este comando._');
@@ -299,7 +324,7 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if (content.startsWith('#pedircarta')) {
+        if (content.includes('#pedircarta')) {
             const args = content.split(' ');
             const idBaraja = Math.floor(parseInt(args[1]));
             const cantidadCartas = Math.floor(parseInt(args[2])) || 1;
@@ -339,7 +364,7 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if (content.startsWith('#mostrarmano') || content.startsWith('#mostrarcartas') ) {
+        if (content.includes('#mostrarmano') || content.includes('#mostrarcartas') ) {
             const jugador = message.author;
             try {
                 const resultado = await obtenerMano(jugador);
@@ -349,7 +374,7 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if(content.startsWith('#eliminarmano') || content.startsWith('#eliminarcartas')){
+        if(content.includes('#eliminarmano') || content.includes('#eliminarcartas')){
 
             try {
                 const resultado = await borrarCartasDeJugador(numero);
@@ -359,7 +384,7 @@ async function handleCommands(message, client, admin, participantes) {
             }
         }
 
-        if (content.startsWith('#cartascomun')){
+        if (content.includes('#cartascomun')){
             
             const args = content.split(' ');
             const idBaraja = args[1];
@@ -386,9 +411,10 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if(content.startsWith('#cartaspoker')){
+        if(content.includes('#cartaspoker')){
             try{
                 const args = content.split(' ');
+                const indice = args.indexOf('#cartaspoker');
                 const id = Math.floor(parseInt(args[1]));
 
                 if (args.length < 2) {
@@ -406,14 +432,21 @@ async function handleCommands(message, client, admin, participantes) {
         } //check    
 
 
-    if (content.startsWith('#cobrar') || content.startsWith('#restar')) {
+    if (content.includes('#cobrar') || content.includes('#quitar')) {
         if (!await esCrupier(message.author,admin)) {
             await message.reply('_No tienes permiso para ejecutar este comando._');
             return;
         }
+        let jugador;
+        let cantidad;
         const args = content.split(' ');
-        const jugador = args[1];
-        const cantidad = parseFloat(args[2]);
+        const indice = args.indexOf('#cobrar') || args.indexOf('#quitar');
+
+        if(indice !== -1 && args.length >= indice + 2){
+
+        jugador = args[indice+1];
+        cantidad = parseFloat(args[indice+2]);
+     }
 
         if (!jugador || isNaN(cantidad)) {
             await message.reply('_Uso incorrecto. Ejemplo: #cobrar NombreJugador 100_');
@@ -443,15 +476,21 @@ async function handleCommands(message, client, admin, participantes) {
     } //check
 
     // Comando #pagar
-    if (content.startsWith('#pagar') ||content.startsWith('#sumar')) {
+    if (content.includes('#pagar') ||content.includes('#sumar')) {
 
         if (!await esCrupier(message.author,admin)) {
             await message.reply('_No tienes permiso para ejecutar este comando._');
             return;
         }
+        let jugador;
+        let cantidad;
         const args = content.split(' ');
-        const jugador = args[1];
-        const cantidad = parseFloat(args[2]);
+        const indice = args.indexOf('#pagar') || args.indexOf('#sumar');
+
+        if(indice !== -1 && content.length >= indice + 2){
+        jugador = args[indice+1];
+        cantidad = parseFloat(args[indice+2]);
+        }
 
         if (!jugador || isNaN(cantidad)) {
             await message.reply('_Uso incorrecto. Ejemplo: #pagar NombreJugador 100_');
@@ -475,7 +514,7 @@ async function handleCommands(message, client, admin, participantes) {
     }
 
     // Comando #vermidinero
-    if (content.startsWith('#vermidinero')) {
+    if (content.includes('#vermidinero')) {
         try {
             const registros = cargarRegistros();
             const numero = message.author;
@@ -491,7 +530,7 @@ async function handleCommands(message, client, admin, participantes) {
         }
     } //check
 
-    if (content.startsWith('#ruleta')) {
+    if (content.includes('#ruleta')) {
             if (!await esCrupier(message.author,admin)) {
                 await message.reply('_No tienes permiso para ejecutar este comando._');
                 return;
@@ -506,16 +545,16 @@ async function handleCommands(message, client, admin, participantes) {
             
         } //check
 
-        if(content.startsWith('#moneda')) {
+        if(content.includes('#moneda')) {
             const resultado = moneda(); 
             await message.reply(resultado);
         } //check
 
-        if(content.startsWith('#cartarandom')) {
+        if(content.includes('#cartarandom')) {
             await message.reply(cartaAleatoria());
         } //check
 
-        if(content.startsWith('#infobot')) {
+        if(content.includes('#infobot')) {
             try {
                 const filePath = path.join(__dirname, 'texto2.txt');
                 const texto = fs.readFileSync(filePath, 'utf8');
@@ -527,10 +566,11 @@ async function handleCommands(message, client, admin, participantes) {
         } //check
         
 
-        if(content.startsWith('#tragamonedas')) {
+        if(content.includes('#tragamonedas')) {
             
             try {
-                if(content === '#tragamonedas5'){ 
+
+                if(content.includes('#tragamonedas5')){ 
                     
                     const resultado = jalarpalanca2(simbolos2); 
                         

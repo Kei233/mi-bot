@@ -1,0 +1,19 @@
+# Ignorar la carpeta .wwebjs_auth
+.wwebjs_auth/
+
+# Ignorar la carpeta .wwebjs_cache
+.wwebjs_cache/
+
+# Ignorar la carpeta .wwebjs_auth dentro de index
+index/.wwebjs_auth/
+
+# Ignorar la carpeta .wwebjs_cache dentro de index
+index/.wwebjs_cache/
+
+# Ignorar node_modules
+node_modules/
+
+# Ignorar archivos log
+*.log
+
+.vscode/

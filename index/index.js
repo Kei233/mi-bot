@@ -24,16 +24,6 @@ client.on('qr', (qr) => {
 client.on('ready', async () => {
 
     console.log('El cliente está listo y conectado a WhatsApp!');
-    
-    client.on('ready', async () => {
-        console.log('Cliente listo para usar.');
-    
-        try {
-
-        } catch (error) {
-            console.error('Error al obtener los chats:', error);
-        }
-    });
 
 });
 
@@ -41,7 +31,13 @@ client.on('message_create', async (message) => {
 
         let chatId = (message.fromMe ? message.to : message.from);
 
-    if ((chatId === '120363362805067941@g.us' || chatId === '120363385970988223@g.us' || chatId ===  '120363367296416960@g.us') && message.body.startsWith('#') || message.body.startsWith('@everyone')) {
+        const grupos = [ '120363362805067941@g.us', '120363385970988223@g.us', 
+                        '120363367296416960@g.us', '120363380670290037@g.us',
+                        '120363364249888983@g.us', '120363380801529962@g.us' ];
+
+    // '120363380670290037@g.us' (Serio),  '120363364249888983@g.us' (The Other World), '120363380801529962@g.us' (OffRol)
+    if ((message.body.includes('#init') && message.fromMe) || message.body.includes('@everyone') ||(grupos.includes(chatId) && message.body.includes('#'))) {         
+            
             const group = await message.getChat();
             const participantes = group.participants;
             console.log(`Comando de ${message.author}: ${message.body}`);
