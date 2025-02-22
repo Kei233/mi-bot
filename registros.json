@@ -1,0 +1,789 @@
+[
+  {
+    "numero": "5493516544520@c.us",
+    "nombre": "eco",
+    "dinero": 1000,
+    "estadisticas": {
+      "fuerza": 20,
+      "agilidad": 200,
+      "vida": 2000,
+      "mana": 800,
+      "magia": 800,
+      "vidaMax": 2000,
+      "manaMax": 480,
+      "velAt": 3,
+      "crit": 5,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 1,
+    "experiencia": 0,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2,
+      14,
+      15
+    ],
+    "armaPrincipal": {
+      "nombre": "Bastón generico",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 10,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "magia",
+          "duracion": 0,
+          "intensidad": 200,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0,
+    "distancia": [
+      {
+        "nombre": "eco",
+        "distancia": 20
+      }
+    ]
+  },
+  {
+    "numero": "59893577095@c.us",
+    "nombre": "arvish",
+    "dinero": 1000,
+    "estadisticas": {
+      "fuerza": 300,
+      "agilidad": 340,
+      "vida": 2000,
+      "mana": 430,
+      "magia": 430,
+      "vidaMax": 2000,
+      "manaMax": 430,
+      "velAt": 3,
+      "crit": 14,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 1,
+    "experiencia": 0,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2
+    ],
+    "armaPrincipal": {
+      "nombre": "Espada generica",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 120,
+      "equipada": true,
+      "modificadores": [
+        {
+          "estadistica": "agilidad",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        },
+        {
+          "estadistica": "fuerza",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0
+  },
+  {
+    "numero": "573203954823@c.us",
+    "nombre": "ludociel",
+    "dinero": 1038,
+    "estadisticas": {
+      "fuerza": 500,
+      "agilidad": 1150,
+      "vida": 1700,
+      "mana": 200,
+      "magia": 300,
+      "vidaMax": 3500,
+      "manaMax": 200,
+      "velAt": 7,
+      "crit": 12,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 4,
+    "experiencia": 332,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2
+    ],
+    "armaPrincipal": {
+      "nombre": "Lanza generica",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 100,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "agilidad",
+          "duracion": 0,
+          "intensidad": 110,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "explicito": false,
+    "spawn": true,
+    "contadorSpawn": 0,
+    "distancia": [
+      {
+        "nombre": "hades",
+        "distancia": 0
+      },
+      {
+        "nombre": "Murciélago cavernario",
+        "distancia": 0
+      }
+    ]
+  },
+  {
+    "numero": "584128499699@c.us",
+    "nombre": "kyo",
+    "dinero": 1059,
+    "estadisticas": {
+      "fuerza": 750,
+      "agilidad": 700,
+      "vida": 3000,
+      "mana": 275,
+      "magia": 275,
+      "vidaMax": 3000,
+      "manaMax": 275,
+      "velAt": 5,
+      "crit": 15,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 3,
+    "experiencia": 265,
+    "casino": false,
+    "inventario": [
+      {
+        "nombre": "Poción de vida pequeña",
+        "efectos": {
+          "vida": 100
+        },
+        "cantidad": 1
+      }
+    ],
+    "hechizos": [
+      1,
+      2
+    ],
+    "armaPrincipal": {
+      "nombre": "Espada generica",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 120,
+      "equipada": true,
+      "modificadores": [
+        {
+          "estadistica": "agilidad",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        },
+        {
+          "estadistica": "fuerza",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "explicito": false,
+    "spawn": true,
+    "contadorSpawn": 0,
+    "distancia": []
+  },
+  {
+    "numero": "573165690084@c.us",
+    "nombre": "eliza",
+    "dinero": 1000,
+    "estadisticas": {
+      "fuerza": 250,
+      "agilidad": 250,
+      "vida": 2000,
+      "mana": 500,
+      "magia": 500,
+      "vidaMax": 2000,
+      "manaMax": 500,
+      "velAt": 3,
+      "crit": 13,
+      "precision": 0,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 1,
+    "experiencia": 0,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2,
+      14
+    ],
+    "armaPrincipal": {
+      "nombre": "Espada generica",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 120,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "agilidad",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        },
+        {
+          "estadistica": "fuerza",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "habilidades": [],
+    "talento": {},
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0,
+    "adjudicados": []
+  },
+  {
+    "numero": "5491153173187@c.us",
+    "nombre": "alice",
+    "dinero": 1000,
+    "estadisticas": {
+      "fuerza": 200,
+      "agilidad": 600,
+      "vida": 2000,
+      "mana": 400,
+      "magia": 200,
+      "vidaMax": 2000,
+      "manaMax": 400,
+      "velAt": 4,
+      "crit": 12,
+      "precision": 0,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 1,
+    "experiencia": 0,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2
+    ],
+    "armaPrincipal": {
+      "nombre": "Bastón generico",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 10,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "magia",
+          "duracion": 0,
+          "intensidad": 200,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "habilidades": [],
+    "talento": {},
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0,
+    "adjudicados": []
+  },
+  {
+    "numero": "5359400728@c.us",
+    "nombre": "anura",
+    "dinero": 1758,
+    "estadisticas": {
+      "fuerza": 1700,
+      "agilidad": 1000,
+      "vida": 6000,
+      "mana": 400,
+      "magia": 450,
+      "vidaMax": 6000,
+      "manaMax": 400,
+      "velAt": 7,
+      "crit": 27,
+      "precision": -120,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 9,
+    "experiencia": 41,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "armaPrincipal": {
+      "nombre": "Sierra C",
+      "rango": "C",
+      "cantidad": 1,
+      "tipo": "arma",
+      "distancia": 100,
+      "tipoAtaque": "distancia",
+      "daño": 400,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "fuerza",
+          "intensidad": 100,
+          "duracion": 0,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": [
+        {
+          "nombre": "veneno",
+          "duracion": 4,
+          "intensidad": 40,
+          "probabilidad": 65
+        }
+      ],
+      "modificadoresArma": [],
+      "transformable": {
+        "totalFases": 2,
+        "fase": 2,
+        "fases": {
+          "1": {
+            "nombre": "Rifle C",
+            "rango": "C",
+            "cantidad": 1,
+            "tipo": "arma",
+            "distancia": 100,
+            "tipoAtaque": "distancia",
+            "daño": 600,
+            "equipada": false,
+            "modificadores": [
+              {
+                "estadistica": "precision",
+                "duracion": 0,
+                "intensidad": 120,
+                "buff": true,
+                "fuente": "arma"
+              }
+            ],
+            "efectos": [],
+            "modificadoresArma": []
+          },
+          "2": {
+            "nombre": "Sierra C",
+            "rango": "C",
+            "cantidad": 1,
+            "tipo": "arma",
+            "distancia": [],
+            "tipoAtaque": "melee",
+            "daño": 400,
+            "equipada": false,
+            "modificadores": [
+              {
+                "estadistica": "fuerza",
+                "intensidad": 100,
+                "duracion": 0,
+                "buff": true,
+                "fuente": "arma"
+              }
+            ],
+            "efectos": [
+              {
+                "nombre": "veneno",
+                "duracion": 4,
+                "intensidad": 40,
+                "probabilidad": 65
+              }
+            ],
+            "modificadoresArma": []
+          }
+        }
+      }
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "habilidades": [],
+    "talento": {},
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0,
+    "adjudicados": [],
+    "distancia": [
+      {
+        "nombre": "hydra",
+        "distancia": 100
+      },
+      {
+        "nombre": "Elemental menor de tierra",
+        "distancia": 100
+      },
+      {
+        "nombre": "Escarabajo del pantano",
+        "distancia": 100
+      },
+      {
+        "nombre": "Criatura_X",
+        "distancia": 100
+      },
+      {
+        "nombre": "Lobo espectral",
+        "distancia": 100
+      }
+    ]
+  },
+  {
+    "numero": "5350182039@c.us",
+    "nombre": "gi",
+    "dinero": 1000,
+    "estadisticas": {
+      "fuerza": 375,
+      "agilidad": 375,
+      "vida": 2000,
+      "mana": 375,
+      "magia": 375,
+      "vidaMax": 2000,
+      "manaMax": 375,
+      "velAt": 3,
+      "crit": 15,
+      "precision": 0,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 1,
+    "experiencia": 0,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2
+    ],
+    "armaPrincipal": {
+      "nombre": "Arco Generico",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 100,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "precisión",
+          "duracion": 0,
+          "intensidad": 60,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "habilidades": [],
+    "talento": {},
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0,
+    "adjudicados": []
+  },
+  {
+    "numero": "51924091418@c.us",
+    "nombre": "hades",
+    "dinero": 1000,
+    "estadisticas": {
+      "fuerza": 500,
+      "agilidad": 400,
+      "vida": 2000,
+      "mana": 300,
+      "magia": 300,
+      "vidaMax": 2000,
+      "manaMax": 300,
+      "velAt": 3,
+      "crit": 17,
+      "precision": 0,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 1,
+    "experiencia": 0,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2
+    ],
+    "armaPrincipal": {
+      "nombre": "Espada generica",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 120,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "agilidad",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        },
+        {
+          "estadistica": "fuerza",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "habilidades": [],
+    "talento": {},
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0,
+    "adjudicados": [],
+    "distancia": []
+  },
+  {
+    "numero": "573192195610@c.us",
+    "nombre": "ren",
+    "dinero": 1596,
+    "estadisticas": {
+      "fuerza": 900,
+      "agilidad": 750,
+      "vida": 4840,
+      "mana": 300,
+      "magia": 250,
+      "vidaMax": 6000,
+      "manaMax": 300,
+      "velAt": 5,
+      "crit": 17,
+      "precision": 0,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 9,
+    "experiencia": 815,
+    "habilidadesAprendidas": [],
+    "casino": false,
+    "inventario": [
+      {
+        "nombre": "Lanza E",
+        "rango": "E",
+        "cantidad": 1,
+        "tipo": "arma",
+        "distancia": 0,
+        "tipoAtaque": "melee",
+        "daño": 76,
+        "equipada": false,
+        "modificadores": [],
+        "efectos": [],
+        "modificadoresArma": [],
+        "transformable": {
+          "totalFases": 2,
+          "fase": 2,
+          "fases": {
+            "1": {
+              "nombre": "Lanza E",
+              "rango": "E",
+              "tipo": "arma",
+              "distancia": 0,
+              "tipoAtaque": "melee",
+              "daño": 76,
+              "equipada": false,
+              "modificadores": [],
+              "efectos": [],
+              "modificadoresArma": []
+            },
+            "2": {
+              "nombre": "Lanza E",
+              "rango": "E",
+              "cantidad": 1,
+              "tipo": "arma",
+              "distancia": 0,
+              "tipoAtaque": "melee",
+              "daño": 98,
+              "equipada": false,
+              "modificadores": [],
+              "efectos": [],
+              "modificadoresArma": []
+            }
+          }
+        }
+      }
+    ],
+    "hechizos": [
+      1,
+      2
+    ],
+    "armaPrincipal": {
+      "nombre": "Lanza generica",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 100,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "agilidad",
+          "duracion": 0,
+          "intensidad": 110,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "talento": "",
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 1600,
+    "habilidades": [],
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0,
+    "adjudicados": [],
+    "distancia": [
+      {
+        "nombre": "dragón",
+        "distancia": 0
+      },
+      {
+        "nombre": "hydra",
+        "distancia": 0
+      }
+    ]
+  },
+  {
+    "numero": "5359409425@c.us",
+    "nombre": "rebecca",
+    "dinero": 1000,
+    "estadisticas": {
+      "fuerza": 400,
+      "agilidad": 900,
+      "vida": 2000,
+      "mana": 100,
+      "magia": 100,
+      "vidaMax": 2000,
+      "manaMax": 100,
+      "velAt": 5,
+      "crit": 15,
+      "precision": 0,
+      "efectos": []
+    },
+    "armadura": 0,
+    "nivel": 1,
+    "experiencia": 0,
+    "casino": false,
+    "inventario": [],
+    "hechizos": [
+      1,
+      2
+    ],
+    "armaPrincipal": {
+      "nombre": "Espada generica",
+      "rango": "D",
+      "cantidad": 1,
+      "tipo": "arma",
+      "daño": 120,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "agilidad",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        },
+        {
+          "estadistica": "fuerza",
+          "duracion": 0,
+          "intensidad": 50,
+          "buff": true,
+          "fuente": "arma"
+        }
+      ],
+      "efectos": []
+    },
+    "reliquias": [],
+    "talento": [],
+    "modificadoresTemp": [],
+    "puntosPorDistribuir": 0,
+    "habilidades": [],
+    "explicito": false,
+    "spawn": false,
+    "contadorSpawn": 0,
+    "adjudicados": []
+  }
+]

@@ -1,0 +1,96 @@
+[
+  {
+    "nombre": "Poción mágica",
+    "probabilidad": 30,
+    "rango": "A",
+    "cantidad": 5,
+    "precio": 1100
+  },
+  {
+    "nombre": "Espada larga",
+    "probabilidad": 40,
+    "rango": "A",
+    "cantidad": 1,
+    "tipo": "arma",
+    "calidad": "A",
+    "efecto": {
+      "daño": 75
+    },
+    "precio": 220
+  },
+  {
+    "nombre": "Espada larga",
+    "probabilidad": 40,
+    "rango": "A",
+    "cantidad": 4,
+    "tipo": "arma",
+    "calidad": "A",
+    "efecto": {
+      "daño": 75
+    },
+    "precio": 880
+  },
+  {
+    "nombre": "Espada larga",
+    "probabilidad": 40,
+    "rango": "A",
+    "cantidad": 1,
+    "tipo": "arma",
+    "calidad": "A",
+    "efecto": {
+      "daño": 75
+    },
+    "precio": 220
+  },
+  {
+    "nombre": "Poción de vida grande",
+    "probabilidad": 30,
+    "rango": "S",
+    "cantidad": 1,
+    "efecto": {
+      "vida": 400
+    },
+    "precio": 9550
+  },
+  {
+    "nombre": "Poción de vida mediana",
+    "probabilidad": 50,
+    "cantidad": 4,
+    "tipo": "poción",
+    "calidad": "B",
+    "efecto": {
+      "vida": 250
+    },
+    "precio": 840
+  },
+  {
+    "nombre": "Poción de vida mediana",
+    "probabilidad": 50,
+    "cantidad": 3,
+    "tipo": "poción",
+    "calidad": "B",
+    "efecto": {
+      "vida": 250
+    },
+    "precio": 630
+  },
+  {
+    "nombre": "Espada común",
+    "probabilidad": 25,
+    "rango": "D",
+    "cantidad": 4,
+    "tipo": "arma",
+    "daño": 10,
+    "equipada": false,
+    "modificadores": [],
+    "efectos": [],
+    "precio": 620
+  },
+  {
+    "nombre": "Poción mágica",
+    "probabilidad": 30,
+    "rango": "A",
+    "cantidad": 4,
+    "precio": 880
+  }
+]

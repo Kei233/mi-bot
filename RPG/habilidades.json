@@ -1,0 +1,30 @@
+[
+    {
+    "id": 1,
+    "nombre": "Berserk",
+    "activa": true,
+    "tipo": "fisico",
+    "efectos": [
+        {
+            "estadistica": "fuerza",
+            "intensidad": 0,
+            "buff": true
+        },
+        {
+            "estadistica": "agilidad",
+            "intensidad": 0,
+            "buff": true
+        }  
+    ],
+    "duracion": 2,
+    "costo": {
+        "estadistica": "vida",
+        "costo": 200
+    },
+    "debiitador": true
+    },
+    {
+
+    }
+
+]

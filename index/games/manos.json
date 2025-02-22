@@ -1,0 +1,28 @@
+[
+  {
+    "jugador": "573192195610@c.us",
+    "cartas": [
+      {
+        "palo": "Corazones",
+        "valor": "3"
+      },
+      {
+        "palo": "Picas",
+        "valor": "3"
+      }
+    ]
+  },
+  {
+    "jugador": "5212293382423@c.us",
+    "cartas": [
+      {
+        "palo": "Picas",
+        "valor": "8"
+      },
+      {
+        "palo": "Tréboles",
+        "valor": "A"
+      }
+    ]
+  }
+]

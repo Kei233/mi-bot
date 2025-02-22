@@ -28,8 +28,6 @@ async function crearBaraja(id) {
         // Parsear el id a número
         const idNumerico = parseInt(id, 10);
 
-        if(idNumerico === 122){ return null; }
-
         const data = fs.readFileSync(cardsFilePath, 'utf8');
         const cartas = JSON.parse(data);
 
@@ -277,7 +275,7 @@ async function barajaSimplificada(id, paloDeseado) {
         // Verificar si ya existe una baraja con ese ID
         const barajaExistente = barajas.find(baraja => baraja.id === idNumerico);
         if (barajaExistente) {
-            console.log(`Una baraja con el ID ${idNumerico} ya existe.`);
+            console.log(`La baraja ya existe.`);
             return 'existe';
         }
 
@@ -301,11 +299,10 @@ async function barajaSimplificada(id, paloDeseado) {
         barajas.push(nuevaBaraja);
         guardarBarajas(barajas);
 
-        console.log(`Baraja simplificada creada con éxito. ID: ${idNumerico}`);
-        return idNumerico; // Retornar el ID de la baraja creada
+        console.log(`Baraja simplificada creada con éxito.`);
+        return nuevaBaraja.cartas; // Retornar el arreglo de la cartas.
     } catch (error) {
         console.error('Error al crear la baraja simplificada:', error.message);
-        return undefined;
     }
 }
 

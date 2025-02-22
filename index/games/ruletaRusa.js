@@ -1,19 +1,61 @@
-async function ruletaRusa(){
-    const espacios = [1, 2, 3, 4, 5, 6];
+const fs = require('fs');
+const path = require('path');
 
-    let cartucho = Math.floor((Math.random() * (6 - 1)) + 1);
+// Ruta para guardar el estado del tambor
+const tamborPath = path.join(__dirname, 'tambor.json');
 
-    let bala = espacios[cartucho];
-    let posicion = girarBarril(espacios);
+// Función para inicializar la ruleta rusa
+function inicializarTambor(balas = 1, espacios = 6) {
+    if (balas > espacios) {
+        throw new Error('El número de balas no puede ser mayor que el número de espacios.');
+    }
 
-    return [bala, posicion];
-};
+    const posiciones = Array(espacios).fill(false);
+    for (let i = 0; i < balas; i++) {
+        let posicion;
+        do {
+            posicion = Math.floor(Math.random() * espacios);
+        } while (posiciones[posicion]);
+        posiciones[posicion] = true;
+    }
 
-async function girarBarril(posicion){
+    const tambor = {
+        posiciones,
+        actual: 0, // Posición inicial del tambor
+    };
 
-    posicion =  Math.floor((Math.random() * (6 - 1)) + 1);
-
-    return posicion;
+    guardarTambor(tambor);
+    return tambor;
 }
 
-module.exports = {ruletaRusa, girarBarril };
+// Función para disparar
+function disparar() {
+    const tambor = cargarTambor();
+    const { posiciones, actual } = tambor;
+
+    const resultado = posiciones[actual] ? '¡BANG!' : 'Click';
+
+    // Avanza al siguiente espacio del tambor
+    tambor.actual = (actual + 1) % posiciones.length;
+    guardarTambor(tambor);
+
+    return resultado;
+}
+
+// Función para cargar el estado del tambor
+function cargarTambor() {
+    if (!fs.existsSync(tamborPath)) {
+        throw new Error('El tambor no está inicializado.');
+    }
+    return JSON.parse(fs.readFileSync(tamborPath, 'utf-8'));
+}
+
+// Función para guardar el estado del tambor
+function guardarTambor(tambor) {
+    fs.writeFileSync(tamborPath, JSON.stringify(tambor, null, 2));
+}
+
+module.exports = {
+    inicializarTambor,
+    disparar,
+};

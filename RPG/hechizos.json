@@ -1,0 +1,305 @@
+[   
+    {
+        "id": 0,
+        "nombre": "Adm-depuration",
+        "descripcion": "¿?",
+        "dañoBase": 0,
+        "intensidad": 0,
+        "duracion": 0,
+        "costo": 10,
+        "efectos": [
+            { "nombre": "quemadura", "duracion": 3, "intensidad": 10, "probabilidad": 50 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 1,
+        "rango": "E",
+        "probabilidad": 5
+    },
+    {
+        "id": 1,
+        "nombre": "Llama Infernal",
+        "descripcion": "Inflige 30 de daño de fuego con probabilidad de aplicar quemadura. (id: 1)",
+        "dañoBase": 30,
+        "intensidad": 10,
+        "duracion": 3,
+        "costo": 20,
+        "efectos": [
+            { "nombre": "quemadura", "duracion": 3, "intensidad": 10, "probabilidad": 50 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 1,
+        "rango": "E",
+        "probabilidad": 5
+    },
+    {
+        "id": 2,
+        "nombre": "Nube Tóxica",
+        "descripcion": "Inflige daño leve y aplica veneno con alta probabilidad. (id: 2)",
+        "dañoBase": 15,
+        "intensidad": 5,
+        "duracion": 4,  
+        "costo": 15,
+        "efectos": [
+            { "nombre": "veneno", "duracion": 4, "intensidad": 5, "probabilidad": 70 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 1,
+        "rango": "E",
+        "probabilidad": 5
+    },
+    {
+        "id": 3,
+        "nombre": "Envenenar",
+        "descripcion": "Inflige daño alto y aplica veneno con moderada probabilidad. (id: 3)",
+        "dañoBase": 15,
+        "intensidad": 20,
+        "duracion": 2,
+        "costo": 20,
+        "efectos": [
+            { "nombre": "veneno", "duracion": 2, "intensidad": 20, "probabilidad": 50 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 1,
+        "rango": "E",
+        "probabilidad": 5
+    },
+    {
+        "id": 3,
+        "nombre": "Envenenar",
+        "descripcion": "Inflige daño alto y aplica veneno con moderada probabilidad. (id: 3)",
+        "dañoBase": 15,
+        "intensidad": 20,
+        "duracion": 2,
+        "costo": 20,
+        "efectos": [
+            { "nombre": "veneno", "duracion": 2, "intensidad": 20, "probabilidad": 50 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 1,
+        "rango": "E",
+        "probabilidad":10
+    },
+    {
+        "id": 4,
+        "nombre": "Bola de energia",
+        "descripcion": "Inflige gran daño. (id: 4)",
+        "dañoBase": 150,
+        "intensidad": 20,
+        "duracion": 2,
+        "costo": 20,
+        "efectos": [],
+        "Especial": [],
+        "nivelRequerido": 1,
+        "rango": "E",
+        "probabilidad": 5
+    },
+    {
+        "id": 5,
+        "nombre": "Maldecir",
+        "descripcion": "Pequeña probabilidad de aplicar *Maldición* con duración 5 (id: 5)",
+        "dañoBase": 40,
+        "intensidad": 20,
+        "duracion": 2,
+        "costo": 25,
+        "efectos": [
+            { "nombre": "maldición", "duracion": 5, "intensidad": 10, "probabilidad": 10 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 2,
+        "rango": "E",
+        "probabilidad": 0
+    },
+    {
+        "id": 6,
+        "nombre": "Multi - efectos",
+        "descripcion": "Probabilidad de aplicar todos los efectos negativos. (id: 6)",
+        "dañoBase": 30,
+        "intensidad": 15,
+        "duracion": 5,
+        "costo": 25,
+        "efectos": [
+            { "nombre": "maldición", "duracion": 5, "intensidad": 15, "probabilidad": 10 },
+            { "nombre": "congelación", "duracion": 5, "intensidad": 15, "probabilidad": 10 },
+            { "nombre": "veneno", "duracion": 5, "intensidad": 15, "probabilidad": 10 },
+            { "nombre": "quemadura", "duracion": 5, "intensidad": 15, "probabilidad": 10 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 2,
+        "rango": "E",
+        "probabilidad": 0
+    },
+    {
+        "id": 7,
+        "nombre": "Regeneración",
+        "descripcion": "Pequeña probabilidad de aplicar *Regeneración* al objetivo (id: 7)",
+        "dañoBase": 40,
+        "intensidad": 0,
+        "duracion": 0,
+        "costo": 25,
+        "efectos": [
+            { "nombre": "regeneración", "duracion": 5, "intensidad": 10, "probabilidad": 10 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 2,
+        "rango": "E",
+        "probabilidad": 5
+    },
+    {
+        "id": 8,
+        "nombre": "Ultraquemar",
+        "descripcion": "Alta probabilidad de aplicar quemadura de alta intensidad.",
+        "dañoBase": 80,
+        "intensidad": 0,
+        "duracion": 0,
+        "costo": 40,
+        "efectos": [
+            { "nombre": "quemadura", "duracion": 6, "intensidad": 50, "probabilidad": 80 }
+        ],
+        "Especial": [],
+        "nivelRequerido": 2,
+        "rango": "E",
+        "probabilidad": 5
+    },
+    {
+        "id": 10,
+        "nombre": "Detección",
+        "descripcion": "Muestra todas las estadisticas del objetivo. (id: 11)",
+        "dañoBase": 0,
+        "intensidad": 20,
+        "duracion": 10,
+        "costo": 20,
+        "efectos": [],
+        "Especial": ["Detección"],
+        "nivelRequerido": 3,
+        "rango": "D",
+        "probabilidad": 100
+    },
+    {
+        "id": 11,
+        "nombre": "Fuerza Mágica",
+        "descripcion": "Aumenta la fuerza en 20 puntos. (id: 11)",
+        "dañoBase": 1,
+        "intensidad": 20,
+        "duracion": 10,
+        "costo": 40,
+        "efectos": [],
+        "Especial": ["mejorarFuerza"],
+        "nivelRequerido": 1,
+        "rango": "D",
+        "probabilidad": 0
+    },
+    {
+        "id": 12,
+        "nombre": "Curación",
+        "descripcion": "Te cura, con pequeña probabilidad de adquirir 'Regneración'. (id: 12)",
+        "dañoBase": 0,
+        "intensidad": 40,
+        "duracion": 0,
+        "costo": 50,
+        "efectos": [
+            {  "nombre": "regeneración", "duracion": 4, "intensidad": 15, "probabilidad": 5 }
+        ],
+        "Especial": ["Curar"],
+        "nivelRequerido": 1,
+        "rango": "D",
+        "probabilidad": 0
+    },
+    { 
+        "id": 14,
+        "nombre": "Boost",
+        "descripcion": "Mejora todas tus estadisticas. (id: 14)",
+        "dañoBase": 0,
+        "intensidad": 10,
+        "duracion": 8,
+        "costo": 50,
+        "efectos": [],
+        "Especial": ["mejorarEstadisticas"],
+        "nivelRequerido": 1,
+        "rango": "D",
+        "probabilidad": 0
+    },
+    {
+        "id": 15,
+        "nombre": "GranMagia",
+        "descripcion": "Aumenta tú magia en un 10%. (id: 14)",
+        "dañoBase": 0,
+        "intensidad": 40,
+        "duracion": 0,
+        "costo": 40,
+        "efectos": [],
+        "Especial": ["MejorarMagia"],
+        "nivelRequerido": 1,
+        "rango": "D",
+        "probabilidad": 0
+    },
+    {
+        "id": 16,
+        "nombre": "Absorción",
+        "descripcion": "Absorbes vida de tú enemigo.",
+        "dañoBase": 0,
+        "intensidad": 40,
+        "duracion": 0,
+        "costo": 40,
+        "efectos": [],
+        "Especial": ["Absorber"],
+        "nivelRequerido": 1,
+        "rango": "D",
+        "probabilidad": 0
+    },
+    {
+        "id": 17,
+        "nombre": "Mejorar Arma",
+        "descripcion": "Mejora tu arma equipada durante 7 turnos.",
+        "dañoBase": 0,
+        "intensidad": 0,
+        "duracion": 7,
+        "costo": 80,
+        "efectos": [],
+        "Especial": ["MejoraArma"],
+        "nivelRequerido": 1,
+        "rango": "D",
+        "probabilidad": 0
+    },
+    {
+        "id": 18,
+        "nombre": "Golpe al Alza",
+        "descripcion": "50% de atacar con el doble de fuerza a tú oponente, 50% de probabilidad de que te ataques a ti mismo. (id: 18)",
+        "dañoBase": 40,
+        "intensidad": 20,
+        "duracion": 2,
+        "costo": 25,
+        "efectos": [],
+        "Especial": ["GolpealAlza"],
+        "nivelRequerido": 2,
+        "rango": "E",
+        "probabilidad": 0
+    },
+    {
+        "id": 19,
+        "nombre": "Invocar",
+        "descripcion": "Invoca una criatura segun tú poder magico. (id: 19)",
+        "dañoBase": 40,
+        "intensidad": 20,
+        "duracion": 0,
+        "costo": 25,
+        "efectos": [],
+        "Especial": ["GolpealAlza"],
+        "nivelRequerido": 2,
+        "rango": "E",
+        "probabilidad": 0
+    },
+    {
+        "id": 20,
+        "nombre": "Adjudicar",
+        "descripcion": "_Controlas a la criatura objetivo por un 5 turnos._",
+        "dañoBase": 0,
+        "intensidad": 0,
+        "duracion": 5,
+        "costo": 100,
+        "efectos": [],
+        "Especial": ["AdjudicarBajo"],
+        "nivelRequerido": 5,
+        "rango": "B",
+        "probabilidad": 0
+    }
+]

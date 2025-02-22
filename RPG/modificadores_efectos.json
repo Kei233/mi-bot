@@ -1,0 +1,65 @@
+{
+    "modificadores": [
+      {
+        "estadistica": "fuerza",
+        "intensidad": 0,
+        "duracion": 0,
+        "buff": true,
+        "fuente": "arma"
+      },
+      {
+        "estadistica": "agilidad",
+        "intensidad": 0,
+        "duracion": 0,
+        "buff": true,
+        "fuente": "arma"
+      },
+      {
+        "estadistica": "mana",
+        "intensidad": 0,
+        "duracion": 0,
+        "buff": false,
+        "fuente": "arma"
+      },
+      {
+        "estadistica": "magia",
+        "intensidad": 0,
+        "duracion": 0,
+        "buff": true,
+        "fuente": "arma"
+      },
+      {
+        "estadistica": "todas",
+        "intensidad": 0,
+        "duracion": 0,
+        "buff": true,
+        "fuente": "arma"
+      }
+    ],
+    "efectos": [
+      {
+        "nombre": "veneno",
+        "duracion": 3,
+        "intensidad": 15,
+        "probabilidad": 70
+      },
+      {
+        "nombre": "congelacion",
+        "duracion": 2,
+        "intensidad": 10,
+        "probabilidad": 50,
+        "modificadores": {
+        "estadistica": "agilidad",
+        "intensidad": 15,
+        "duracion": 2,
+        "buff": false
+        }
+      },
+      {
+        "nombre": "quemadura",
+        "duracion": 4,
+        "intensidad": 20,
+        "probabilidad": 60
+      }
+    ]
+  }

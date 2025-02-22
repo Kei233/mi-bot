@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: "mi-bot", // Este nombre debe coincidir con el que usas en 'pm2 restart mi-bot'
-            script: "./index/index.js", // Archivo principal de tu bot
+            script: "./index.js", // Archivo principal de tu bot
             watch: true, 
             ignore_watch: ["node_modules", "logs"],
             env: {

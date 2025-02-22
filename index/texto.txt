@@ -5,7 +5,9 @@ _Aqui te dejo la lista en cuestión:_
 _*Comandos*:_
 _~Los comandos con ✨ son exclusivos de los crupiers.~_
 
-_#tirardados: Tira dos dados. (Numeros aleatorios entre 1 y 6) (✨)_
+_#ficha: Muestra la ficha para personajes._
+
+_#tirardados: Tira dos dados. (Numeros aleatorios entre 1 y 6) (✨) (#tirardado6 tira 6 dados a la vez)_
 
 _#calcular: multiplica dos numeros (debes pasarlos con: #calcular num1 num2)_
 
@@ -17,10 +19,12 @@ _#pedircarta: Pide una carta de una baraja en especifico (Debes pasarle el ID de
 
 _#mostrarmano: Muestra las cartas que tienes._
 
-_#pagar & #cobrar: Añade o quita dinero, debes pasar el nombre de la persona. (✨)_
+_#pagar/sumar & #cobrar/quitar: Añade o quita dinero, debes pasar el nombre de la persona. (✨)_
 
 _#moneda: Tira una moneda (Saldra cara o cruz con una probabilidad del 50%)_
 
-_#tragamonedas: Te muestra 3 simbolos, simulando una tragaperras normal.(Se necesita la validación de un crupier para que la apuesta sea valida.)_
+_#tragamonedas: Te muestra 3 simbolos, simulando una tragaperras normal.(Se necesita la validación de un crupier para que la apuesta sea valida.) (#tragamonedas5 muestra 5 simbolos.)_
 
 _#ruleta: Te muestra el resultado de girar una ruleta (color y numero) (✨)_
+
+_#ruletaRusa: Prepara una pistola para el juego de ruleta rusa. Para girar el barril usa: "#girarbarril"._

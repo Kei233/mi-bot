@@ -1,0 +1,173 @@
+[
+  {
+    "nombre": "Lobo espectral",
+    "rango": "C",
+    "estadisticas": {
+      "vida": 0,
+      "mana": 210,
+      "fuerza": 1280,
+      "agilidad": 915,
+      "vidaMax": 4280,
+      "manaMax": 210,
+      "armadura": 0,
+      "experiencia": 1114,
+      "crit": 14,
+      "efectos": [
+        {
+          "nombre": "veneno",
+          "duracion": 4,
+          "intensidad": 40
+        }
+      ],
+      "isJefe": false,
+      "autoCombat": true
+    },
+    "hechizos": [],
+    "idRango": 1,
+    "criatura": true,
+    "armaPrincipal": {
+      "nombre": "Hacha C",
+      "rango": "C",
+      "cantidad": 1,
+      "tipo": "arma",
+      "distancia": 0,
+      "tipoAtaque": "melee",
+      "daño": 47,
+      "equipada": false,
+      "modificadores": [
+        {
+          "estadistica": "fuerza",
+          "intensidad": 5,
+          "duracion": 5,
+          "buff": true,
+          "fuente": "Hacha C"
+        }
+      ],
+      "efectos": [],
+      "modificadoresArma": []
+    },
+    "adjudicada": false,
+    "huida": false,
+    "modificadoresTemp": [
+      {}
+    ],
+    "spawneada": true,
+    "subditos": [
+      "Rata gigante",
+      "Escarabajo del pantano",
+      "Limo",
+      "Murciélago cavernario",
+      "Araña gigante"
+    ],
+    "distancia": [
+      {
+        "nombre": "anura",
+        "distancia": 0
+      }
+    ]
+  },
+  {
+    "nombre": "Rata gigante",
+    "rango": "E",
+    "estadisticas": {
+      "vida": 1200,
+      "mana": 0,
+      "fuerza": 205,
+      "agilidad": 140,
+      "vidaMax": 1200,
+      "manaMax": 0,
+      "armadura": 20,
+      "experiencia": 238,
+      "crit": 4,
+      "efectos": [],
+      "isJefe": false,
+      "autoCombat": true
+    },
+    "hechizos": [],
+    "idRango": 0,
+    "criatura": true,
+    "armaPrincipal": null,
+    "adjudicada": false,
+    "huida": false,
+    "modificadoresTemp": [],
+    "spawneada": true
+  },
+  {
+    "nombre": "Murciélago cavernario",
+    "rango": "E",
+    "estadisticas": {
+      "vida": 1140,
+      "mana": 0,
+      "fuerza": 130,
+      "agilidad": 115,
+      "vidaMax": 1140,
+      "manaMax": 0,
+      "armadura": 25,
+      "experiencia": 203,
+      "crit": 3,
+      "efectos": [],
+      "isJefe": false,
+      "autoCombat": true
+    },
+    "hechizos": [],
+    "idRango": 0,
+    "criatura": true,
+    "armaPrincipal": null,
+    "adjudicada": false,
+    "huida": false,
+    "modificadoresTemp": [],
+    "spawneada": true
+  },
+  {
+    "nombre": "Araña gigante",
+    "rango": "E",
+    "estadisticas": {
+      "vida": 1130,
+      "mana": 0,
+      "fuerza": 240,
+      "agilidad": 110,
+      "vidaMax": 1130,
+      "manaMax": 0,
+      "armadura": 20,
+      "experiencia": 233,
+      "crit": 4,
+      "efectos": [],
+      "isJefe": false,
+      "autoCombat": true
+    },
+    "hechizos": [],
+    "idRango": 0,
+    "criatura": true,
+    "armaPrincipal": null,
+    "adjudicada": false,
+    "huida": false,
+    "modificadoresTemp": [],
+    "spawneada": true
+  },
+  {
+    "nombre": "Rata sombría",
+    "rango": "E",
+    "estadisticas": {
+      "vida": 1090,
+      "mana": 0,
+      "fuerza": 235,
+      "agilidad": 135,
+      "vidaMax": 1090,
+      "manaMax": 0,
+      "armadura": 15,
+      "experiencia": 233,
+      "crit": 4,
+      "efectos": [],
+      "isJefe": false,
+      "autoCombat": true
+    },
+    "hechizos": [],
+    "idRango": 0,
+    "criatura": true,
+    "armaPrincipal": null,
+    "adjudicada": false,
+    "huida": false,
+    "modificadoresTemp": [],
+    "spawneada": true
+  }
+]

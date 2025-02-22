@@ -1,140 +1,21 @@
-const { tirarDados, tirarDados2 } = require('./games/tirardados');
+const { tirarDados, tirarDados2 } = require('./games/tirardados.js');
 const { calcular, moneda, cartaAleatoria } = require('./tools.js');
-const { crearBaraja, borrarBaraja, pedirCarta, obtenerMano, borrarArchivo, borrarCartasDeJugador, barajaSimplificada } = require('./games/blackjack');
+const { crearBaraja, borrarBaraja, pedirCarta, obtenerMano, borrarArchivo, borrarCartasDeJugador, barajaSimplificada } = require('./games/blackjack.js');
 const { ruleta } = require('./games/ruleta.js');
 const { jalarpalanca, jalarpalanca2, simbolos, simbolos2 } = require('./games/tragamonedas.js');
 const fs = require('node:fs');
 const path = require('node:path');
-const { registrarPersona, agregarCrupier, cargarRegistros, guardarRegistros, eliminarCrupier, eliminarRegistro, esCrupier } = require('./registro.js');
-const { mostrarCartasComunitarias } = require('./games/poker.js')
-const { exec } = require('child_process');
-const { ruletaRusa, girarBarril } = require('./games/ruletaRusa.js');
+const { agregarCrupier, cargarRegistros, guardarRegistros, eliminarCrupier, eliminarRegistro, esCrupier } = require('../registro.js');
+const { mostrarCartasComunitarias } = require('./games/poker.js');
+const {  inicializarTambor, disparar } = require('./games/ruletaRusa.js');
 
-async function handleCommands(message, client, admin, participantes) {
+async function casinoCommands(message, client, admin, participantes, chat) {
     try {
-        const content = message.body.trim().toLowerCase(); // Contenido del mensaje
+        const content = message.body.trim().toLowerCase();
         const numero = message.author;
-
-        if(content.includes('#restart') || content.includes('#reset')) {
-
-            if(!admin){ await message.reply('No tienes permisos y no deberias usar este comando.'); return;}
-            if(admin){ await message.reply('_Reiniciando..._');}
-            
-            exec('pm2 restart mi-bot', (error, stdout, stderr) => {
-            if (error) {
-                console.error(`Error al reiniciar el bot: ${error.message}`);
-                return;
-            }
-            if (stderr) {
-                console.error(`stderr: ${stderr}`);
-                return;
-            }
-            console.log(`stdout: ${stdout}`);
-            console.log("Bot reiniciado con éxito");
-        });
-    }
-
-    if (content.includes('@everyone') || content.includes('#all')) {
-        try {
-    
-            // Obtén los participantes del grupo
-            const participants = participantes;
-    
-            const mentions = participants.map(participant => participant.id._serialized);
-    
-            // Define el mensaje para mencionar
-            const mentionMessage = '@.';
-
-            await message.reply(mentionMessage, undefined, {
-                mentions: mentions,
-            });
-    
-            console.log('Etiquetado exitoso.');
-        } catch (error) {
-            console.error('Error al etiquetar a todos:', error);
-            message.reply('_Algo salió mal al etiquetar a todos._');
-        }
-    }
-
-        if(content.includes('#ficha')){
-            try {
-                const filePath = path.join(__dirname, 'texto3.txt');
-                const texto = fs.readFileSync(filePath, 'utf8');
-                await message.reply(texto);
-            } catch (error) {
-                console.error('Error al leer el archivo de texto:', error.message);
-                await message.reply('_Hubo un error al cargar los comandos._');
-            }
-        }
-    
-
-        if(content.includes('#init')){
-            message.reply("Lectura de comandos correcta.");
-            console.log("info:", message);
-        } //check
-
-        if(content.includes('#callatehades')){
-
-            message.reply('Si, callate hades.');
-        }
-
-        if (content.includes('#listacomandos')) {
-            try {
-                const filePath = path.join(__dirname, 'texto.txt');
-                const texto = fs.readFileSync(filePath, 'utf8');
-                await message.reply(texto);
-            } catch (error) {
-                console.error('Error al leer el archivo de texto:', error.message);
-                await message.reply('_Hubo un error al cargar los comandos._');
-            }
-        } //check
-
-        if (content.includes('#registrar')) {
-            try {
-                const args = content.split(' ');
-                const indice = args.indexOf('#registrar');
-                if (args.length < 3) {
-                    await message.reply('_Uso incorrecto. El formato es: #registrar nombre dinero_');
-                    return;
-                }
-
-                const nombre = args[indice+1] 
-                const dinero = parseFloat(args[indice+2]);
-
-                if (isNaN(dinero) || dinero < 1000 || dinero > 15000) {
-                    await message.reply('_Por favor, proporciona una cantidad válida de dinero. (1000 a 15000)_');
-                    return;
-                } 
-
-                registrarPersona(numero, nombre, dinero);
-
-                await message.reply(`_*Registro exitoso.* Nombre: ${nombre}, Dinero: ${dinero}._`);
-            } catch (error) {
-                await message.reply(`_Error al registrar: ${error.message}_`);
-            }
-        } //check
-
-        if(content.includes('#deletepersona')){
-        const args = content.split(' ');
-        const indice = args.indexOf('#deletepersona');
-        const nombrepersona = args[indice+1];
-        const registros = cargarRegistros();
-        const nombre = registros.find(r => r.nombre === jugador);
-    
-            if(!nombrepersona || !nombre)
-                { message.reply('Por favor, proporcione el nombre correcto de la persona.');}
-
-            if (!admin) {
-                    await message.reply('_No tienes permiso para agregar crupieres._');
-                    return;
-            }
-            
-            const resultado = await eliminarRegistro(nombrepersona);
-            await message.reply(`${resultado}`);
-            }
-
-            
-        if (content.includes('#addcrupier')) {
+        const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+       
+        if (content.includes('addcrupier')) {
             const args = content.split(' ');
             const nombreCrupier = args.slice(1).join(' '); // El nombre puede ser compuesto
             
@@ -170,7 +51,7 @@ async function handleCommands(message, client, admin, participantes) {
             }
         }
 
-        if(content.includes('#deletecrupier')){
+        if(content.includes('deletecrupier')){
         const args = content.split(' ');
         const nombreCrupier = args.slice(1).join(' ');
 
@@ -190,21 +71,41 @@ async function handleCommands(message, client, admin, participantes) {
 
         }
 
-        if(content.includes('#RuletaRusa')){
-
-
-
+        if (content.includes('rrusa')) {
+            try {
+                const resultado = disparar(); // Dispara y avanza el tambor
+                await delay(5000);
+        
+                if (resultado === '¡BANG!') {
+                    message.reply(`_*click.*_\n_*Has muerto.*_`);
+                } else {
+                    message.reply(`_Has sobrevivido... Por ahora._`);
+                }
+            } catch (error) {
+                message.reply('_El tambor no está inicializado. Usa #girarbarril para empezar._');
+                console.error(error);
+            }
         }
         
-        if (content.includes('#tirardados')) {
+        if (content.includes('girarbarril')) {
+            try {
+                inicializarTambor(1, 6); // 1 bala en un tambor de 6 espacios
+                message.reply('_El barril ha sido girado con éxito. El juego puede comenzar._');
+            } catch (error) {
+                message.reply('_Hubo un error al girar el barril._');
+                console.error(error);
+            }
+        }
+        
+        if (content.includes('tirardados')) {
             if (!await esCrupier(message.author, admin)) {
                 await message.reply('_No tienes permiso para ejecutar este comando._');
                 return;
             }  
 
-            const simbolos = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"]; // Los símbolos del 1 al 6
+            const simbolos = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"]; 
             const {dado1, dado2 } = tirarDados();
-            if(content === '#tirardados6') 
+            if(content.includes('tirardados6')) 
                 { 
             const {dado1, dado2, dado3, dado4, dado5, dado6} = tirarDados2();
             
@@ -227,7 +128,7 @@ async function handleCommands(message, client, admin, participantes) {
 
         } //check
 
-        if (content.includes('#calcular')) {
+        if (content.includes('calcular')) {
             const args = content.split(' ');
             if (args.length === 3) {
                 const num1 = parseFloat(args[1]);
@@ -243,29 +144,27 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if (content.includes('#21') || content.includes('#blackjack')) {
-
+        if (content.includes('blackjack')) {
+            
             if (!await esCrupier(message.author, admin)) {
                 await message.reply('_No tienes permiso para ejecutar este comando._');
                 return;
             }
+            const args = content.split(' ');
+            const indice = args.indexOf('#blackjack'); 
 
-            let idBaraja = Math.floor(parseInt(content.split(' ')[1]));
+            let idBaraja = Math.floor(parseInt(args[indice+1]));
 
             if (idBaraja) {
 
-                if (!await esCrupier(message.author, admin)) {
-                    await message.reply('_No tienes permiso para ejecutar este comando._');
-                    return;
-                }
                 try {
                         const baraja = await crearBaraja(idBaraja);
 
                     if (Array.isArray(baraja) && !(baraja === 'existe')) {
-                        await message.reply(`_Blackjack iniciado correctamente._\n\n _Tu carta es:_ ${resultado2}`);
                         const resultado1 = await pedirCarta(idBaraja, message.author, 1);
                         const resultado2 = await pedirCarta(idBaraja, message.author, 1);
-
+                        await message.reply(`_Blackjack iniciado correctamente._\n\n _Tu carta es:_${resultado2}`);
+                    
                         await client.sendMessage(message.author, `_Tu carta boca abajo es:_ ${resultado1}`);
 
                     } else if (baraja === 'existe') {
@@ -282,7 +181,8 @@ async function handleCommands(message, client, admin, participantes) {
 
         if (content.includes('#borrar')) {
             const args = content.split(' ');
-            const id = parseInt(args[1]);
+            const indice = args.indexOf('#borrar');
+            const id = parseInt(args[indice+1]);
             
             if (!id) {
                 await message.reply('_Por favor, proporciona el ID del juego a borrar._');
@@ -322,12 +222,51 @@ async function handleCommands(message, client, admin, participantes) {
             } catch (error) {
                 await message.reply(`_Error al borrar las barajas: ${error.message}_`);
             }
-        } //check
+        }
+        
+        if(content.includes('#sblackjack')){
+            if (content.includes('#blackjack')) {
+            
+                if (!await esCrupier(message.author, admin)) {
+                    await message.reply('_No tienes permiso para ejecutar este comando._');
+                    return;
+                }
+                const args = content.split(' ');
+                const indice = args.indexOf('#blackjack'); 
+    
+                let idBaraja = Math.floor(parseInt(args[indice+1]));
+    
+                if (idBaraja) {
+                    
+                    try {
+                            const baraja = await barajaSimplificada(idBaraja, 'Diamantes');
+    
+                        if (Array.isArray(baraja) && !(baraja === 'existe')) {
+
+                        const resultado1 = await pedirCarta(idBaraja, message.author, 1);
+                        const resultado2 = await pedirCarta(idBaraja, message.author, 1);
+                        await message.reply(`_Blackjack simplificado iniciado correctamente._\n\n _Tu carta boca arriba es:_${resultado2}`);
+                        
+                        await client.sendMessage(message.author, `_Tu carta boca abajo es:_ ${resultado1}`);
+    
+                        } else if (baraja === 'existe') {
+                            await message.reply('_El juego ya existe._');
+                        }
+                    } catch (error) {
+                        console.error('Error al crear la baraja:', error.message);
+                        await message.reply('_Hubo un error al crear el juego._');
+                    }
+                } else {
+                    await message.reply('_Por favor, proporciona un identificador para el juego._');
+                } 
+            } 
+        }
 
         if (content.includes('#pedircarta')) {
             const args = content.split(' ');
-            const idBaraja = Math.floor(parseInt(args[1]));
-            const cantidadCartas = Math.floor(parseInt(args[2])) || 1;
+            const indice = args.indexOf('#pedircarta');
+            const idBaraja = Math.floor(parseInt(args[indice+1]));
+            const cantidadCartas = Math.floor(parseInt(args[indice+2])) || 1;
             const jugador = message.author;
 
             if (!idBaraja) {
@@ -341,28 +280,27 @@ async function handleCommands(message, client, admin, participantes) {
             }
             try {
 
-                if(content === '#pedircartaSS'){
-
-                    const resultado2 = await pedirCarta(idBaraja, jugador, cantidadCartas);
-                    if(resultado2 === 'Baraja inexistente')
-                        { await message.reply('_El juego no existe._'); return };   
-
-                    await client.sendMessage(jugador, `_Cartas:_ \n\n${resultado2}`); 
-                    return;
-                }
-
                 const resultado = await pedirCarta(idBaraja, jugador, cantidadCartas);
                 
                 if(resultado === 'Baraja inexistente')
                 { await message.reply('_El juego no existe._'); return };   
                 
-            
                 { await message.reply(`_Cartas:_ \n\n${resultado}`); }
                 
             } catch (error) {
                 await message.reply('_Hubo un error al pedir la carta._');
             }
-        } //check
+        } 
+
+        if(content.includes('#cartasecreta')){
+            const args = content.split(' ');
+            const indice = args.indexOf('#cartasecreta');
+            const id = Math.floor(parseInt(args[indice+1]));
+            const cantidad = Math.floor(parseInt(args[indice+2])) || 1;
+            const resultado = pedirCarta(id, numero, cantidad);
+            client.sendMessage(`_Tú(s) carta(s) boca abajo es/son:_ ${resultado}`);
+
+        }
 
         if (content.includes('#mostrarmano') || content.includes('#mostrarcartas') ) {
             const jugador = message.author;
@@ -374,11 +312,25 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
+        if(content.includes('#adm-eliminarmano')){
+            const registro = cargarRegistros();
+
+            const persona = registro.find(r => r.nombre === nombre);
+            
+            const numero2 = persona.numero;  
+            const resultado = await borrarCartasDeJugador(numero2);
+            
+            await message.reply(resultado);
+
+        }
+
         if(content.includes('#eliminarmano') || content.includes('#eliminarcartas')){
 
             try {
                 const resultado = await borrarCartasDeJugador(numero);
                 await message.reply(resultado);
+
+
             } catch (error) {
                 await message.reply('_Hubo un error al borrar la mano del jugador._');
             }
@@ -387,7 +339,8 @@ async function handleCommands(message, client, admin, participantes) {
         if (content.includes('#cartascomun')){
             
             const args = content.split(' ');
-            const idBaraja = args[1];
+            const indice = args.indexOf('#cartascomun');
+            const idBaraja = args[indice+1];
 
             if (args.length < 2) {
                 return message.reply('_Por favor, proporciona el ID de la baraja._');
@@ -411,11 +364,11 @@ async function handleCommands(message, client, admin, participantes) {
             }
         } //check
 
-        if(content.includes('#cartaspoker')){
+        if(content.includes('cartaspoker')){
             try{
                 const args = content.split(' ');
                 const indice = args.indexOf('#cartaspoker');
-                const id = Math.floor(parseInt(args[1]));
+                const id = Math.floor(parseInt(args[indice+1]));
 
                 if (args.length < 2) {
                     return message.reply('_Por favor, proporciona el ID de la baraja._');
@@ -432,7 +385,7 @@ async function handleCommands(message, client, admin, participantes) {
         } //check    
 
 
-    if (content.includes('#cobrar') || content.includes('#quitar')) {
+    if (content.includes('cobrar') || content.includes('quitar')) {
         if (!await esCrupier(message.author,admin)) {
             await message.reply('_No tienes permiso para ejecutar este comando._');
             return;
@@ -440,7 +393,7 @@ async function handleCommands(message, client, admin, participantes) {
         let jugador;
         let cantidad;
         const args = content.split(' ');
-        const indice = args.indexOf('#cobrar') || args.indexOf('#quitar');
+        const indice = args.indexOf('cobrar') || args.indexOf('quitar');
 
         if(indice !== -1 && args.length >= indice + 2){
 
@@ -452,7 +405,6 @@ async function handleCommands(message, client, admin, participantes) {
             await message.reply('_Uso incorrecto. Ejemplo: #cobrar NombreJugador 100_');
             return;
         }
-
         try {
             const registros = cargarRegistros();
             const registro = registros.find(r => r.nombre === jugador);
@@ -476,7 +428,7 @@ async function handleCommands(message, client, admin, participantes) {
     } //check
 
     // Comando #pagar
-    if (content.includes('#pagar') ||content.includes('#sumar')) {
+    if (content.includes('pagar') ||content.includes('sumar')) {
 
         if (!await esCrupier(message.author,admin)) {
             await message.reply('_No tienes permiso para ejecutar este comando._');
@@ -485,7 +437,7 @@ async function handleCommands(message, client, admin, participantes) {
         let jugador;
         let cantidad;
         const args = content.split(' ');
-        const indice = args.indexOf('#pagar') || args.indexOf('#sumar');
+        const indice = args.indexOf('pagar') || args.indexOf('sumar');
 
         if(indice !== -1 && content.length >= indice + 2){
         jugador = args[indice+1];
@@ -514,10 +466,9 @@ async function handleCommands(message, client, admin, participantes) {
     }
 
     // Comando #vermidinero
-    if (content.includes('#vermidinero')) {
+    if (content.includes('vermidinero')) {
         try {
             const registros = cargarRegistros();
-            const numero = message.author;
             const registro = registros.find(r => r.numero === numero);
 
             if (!registro) {
@@ -530,7 +481,7 @@ async function handleCommands(message, client, admin, participantes) {
         }
     } //check
 
-    if (content.includes('#ruleta')) {
+    if (content.includes('ruleta')) {
             if (!await esCrupier(message.author,admin)) {
                 await message.reply('_No tienes permiso para ejecutar este comando._');
                 return;
@@ -545,32 +496,20 @@ async function handleCommands(message, client, admin, participantes) {
             
         } //check
 
-        if(content.includes('#moneda')) {
+        if(content.includes('moneda')) {
             const resultado = moneda(); 
             await message.reply(resultado);
         } //check
 
-        if(content.includes('#cartarandom')) {
+        if(content.includes('cartarandom')) {
             await message.reply(cartaAleatoria());
-        } //check
-
-        if(content.includes('#infobot')) {
-            try {
-                const filePath = path.join(__dirname, 'texto2.txt');
-                const texto = fs.readFileSync(filePath, 'utf8');
-                await message.reply(texto);
-            } catch (error) {
-                console.error('Error al leer el archivo de texto:', error.message);
-                await message.reply('_Hubo un error al cargar los comandos._');
-            }
         } //check
         
 
-        if(content.includes('#tragamonedas')) {
-            
+        if(content.includes('tragamonedas')) {
             try {
 
-                if(content.includes('#tragamonedas5')){ 
+                if(content.includes('tragamonedas5')){ 
                     
                     const resultado = jalarpalanca2(simbolos2); 
                         
@@ -590,4 +529,4 @@ async function handleCommands(message, client, admin, participantes) {
     }
 } //check
 
-module.exports = { handleCommands };
+module.exports = { casinoCommands };
