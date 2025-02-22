@@ -17,3 +17,5 @@ node_modules/
 *.log
 
 .vscode/
+
+.json

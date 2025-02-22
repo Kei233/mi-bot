@@ -238,7 +238,12 @@
     "explicito": false,
     "spawn": true,
     "contadorSpawn": 0,
-    "distancia": []
+    "distancia": [
+      {
+        "nombre": "hydra",
+        "distancia": 0
+      }
+    ]
   },
   {
     "numero": "573165690084@c.us",
@@ -618,14 +623,14 @@
   {
     "numero": "573192195610@c.us",
     "nombre": "ren",
-    "dinero": 1596,
+    "dinero": 11123,
     "estadisticas": {
       "fuerza": 900,
-      "agilidad": 750,
-      "vida": 4840,
+      "agilidad": 860,
+      "vida": 9840,
       "mana": 300,
       "magia": 250,
-      "vidaMax": 6000,
+      "vidaMax": 11000,
       "manaMax": 300,
       "velAt": 5,
       "crit": 17,
@@ -633,19 +638,45 @@
       "efectos": []
     },
     "armadura": 0,
-    "nivel": 9,
-    "experiencia": 815,
+    "nivel": 19,
+    "experiencia": 1626,
     "habilidadesAprendidas": [],
     "casino": false,
     "inventario": [
       {
+        "nombre": "Espada S",
+        "tipo": "arma",
+        "efectos": [
+          {
+            "nombre": "quemadura",
+            "duracion": 4,
+            "intensidad": 20,
+            "probabilidad": 60
+          }
+        ],
+        "cantidad": 1
+      },
+      {
+        "nombre": "Lanza S",
+        "tipo": "arma",
+        "efectos": [
+          {
+            "nombre": "veneno",
+            "duracion": 3,
+            "intensidad": 15,
+            "probabilidad": 70
+          }
+        ],
+        "cantidad": 1
+      },
+      {
         "nombre": "Lanza E",
         "rango": "E",
-        "cantidad": 1,
+        "cantidad": 2,
         "tipo": "arma",
         "distancia": 0,
         "tipoAtaque": "melee",
-        "daño": 76,
+        "daño": 24,
         "equipada": false,
         "modificadores": [],
         "efectos": [],
@@ -660,7 +691,7 @@
               "tipo": "arma",
               "distancia": 0,
               "tipoAtaque": "melee",
-              "daño": 76,
+              "daño": 24,
               "equipada": false,
               "modificadores": [],
               "efectos": [],
@@ -673,7 +704,7 @@
               "tipo": "arma",
               "distancia": 0,
               "tipoAtaque": "melee",
-              "daño": 98,
+              "daño": 31,
               "equipada": false,
               "modificadores": [],
               "efectos": [],
@@ -693,7 +724,7 @@
       "cantidad": 1,
       "tipo": "arma",
       "daño": 100,
-      "equipada": false,
+      "equipada": true,
       "modificadores": [
         {
           "estadistica": "agilidad",
@@ -707,8 +738,16 @@
     },
     "reliquias": [],
     "talento": "",
-    "modificadoresTemp": [],
-    "puntosPorDistribuir": 1600,
+    "modificadoresTemp": [
+      {
+        "estadistica": "agilidad",
+        "duracion": 0,
+        "intensidad": 110,
+        "buff": true,
+        "fuente": "Lanza generica"
+      }
+    ],
+    "puntosPorDistribuir": 5100,
     "habilidades": [],
     "explicito": false,
     "spawn": false,

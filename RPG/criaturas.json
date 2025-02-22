@@ -169,5 +169,42 @@
     "huida": false,
     "modificadoresTemp": [],
     "spawneada": true
+  },
+  {
+    "nombre": "hydra",
+    "rango": "D",
+    "estadisticas": {
+      "vida": 640,
+      "mana": 150,
+      "fuerza": 300,
+      "agilidad": 330,
+      "vidaMax": 2295,
+      "manaMax": 150,
+      "armadura": 0,
+      "experiencia": 445,
+      "crit": 5,
+      "efectos": [],
+      "isJefe": false,
+      "autoCombat": true
+    },
+    "hechizos": [
+      7
+    ],
+    "idRango": 2,
+    "criatura": true,
+    "armaPrincipal": null,
+    "adjudicada": false,
+    "huida": false,
+    "modificadoresTemp": [
+      {}
+    ],
+    "habilidades": [],
+    "estados": [],
+    "distancia": [
+      {
+        "nombre": "kyo",
+        "distancia": 0
+      }
+    ]
   }
 ]

@@ -258,7 +258,7 @@ async function dropeo(atacante, objetivo) {
     const { rango, estadisticas } = criatura;
 
     // **Reemplazo de cargarRecompensas() con generarLoot()**
-    const loot = generarLoot(criatura);
+    const loot = generarLoot(objetivo, atacante);
 
     // Extraer datos del loot
     const dinero = loot.dinero;
@@ -385,6 +385,5 @@ async function eliminarCriatura(criatura) {
         guardarCriaturas(criaturas);
     }
 }
-
 
 module.exports = { crearCriatura, cargarCriaturas, guardarCriaturas, mostrarEstadisticasCriatura, dropeo, procesarSubditos };

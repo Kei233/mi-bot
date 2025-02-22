@@ -4,6 +4,7 @@
     "nombre": "Berserk",
     "activa": true,
     "tipo": "fisico",
+    "pasiva": null,
     "efectos": [
         {
             "estadistica": "fuerza",
@@ -24,7 +25,57 @@
     "debiitador": true
     },
     {
-
+    "id": 2,
+    "nombre": "Iluminado",
+    "activa": true,
+    "tipo": "magico",
+    "pasiva": null,
+    "efectos": [
+        {
+            "estadistica": "mana",
+            "intensidad": 0,
+            "buff": true
+        },
+        {
+            "estadistica": "magia",
+            "intensidad": 0,
+            "buff": true
+        }  
+    ],
+    "duracion": 2,
+    "costo": {
+        "estadistica": "vida",
+        "costo": 200
+    },
+    "debiitador": true
+    },
+    {
+    "id": 3,
+    "nombre": "Perseverancia",
+    "activa": true,
+    "tipo": "magico",
+    "pasiva": {
+        "nombre": "perseverancia",
+        "intensidad": 200,
+        "estadistica": "vida"
+    },
+    "efectos": [
+        {
+            "estadistica": "fuerza",
+            "intensidad": 0,
+            "buff": true
+        },
+        {
+            "estadistica": "agilidad",
+            "intensidad": 0,
+            "buff": true
+        }  
+    ],
+    "duracion": 2,
+    "costo": {
+        "estadistica": "vida",
+        "costo": 200
+    },
+    "debiitador": true
     }
-
 ]

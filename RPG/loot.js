@@ -1,4 +1,4 @@
-const { generarArmaAleatoria } = require('./combate.cjs');
+const { generarArmaAleatoria } = require('./armas.js');
 const { generarObjetoHabilidad } = require('./habilidades');
 
 function generarDinero(rango) {
@@ -79,7 +79,10 @@ function generarLoot(criatura, jugador){
 
     // Probabilidad base: 10% por cada nivel de idRango (si es 0, se usa 15%)
     let probabilidad = criatura.idRango * 10;
-    if (probabilidad === 0) {
+
+    console.log("Codigo entrando en generar loot. Probabilidad:", probabilidad);
+
+    if (probabilidad === 0 || criatura.idRango === 0) {
         probabilidad = 15;
     }
 
@@ -113,6 +116,8 @@ function generarLoot(criatura, jugador){
         }
         if (Math.random() * 100 < probabilidad) {
             let arma = generarArmaAleatoria(criatura.idRango, criatura.rango, false, null, false);
+            console.log("El arma obtenida en loot: ", arma);
+
             if (arma) {
                 tempLoot.push(arma);
                 contador++;

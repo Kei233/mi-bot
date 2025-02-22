@@ -42,7 +42,10 @@ client.on('message_create', async (message) => {
 
         if(isOwner && message.body.includes('#adm-request')){
             if(message){
-            await message.reply("_Captura de mensajes inicializada._");
+            await message.reply("_Captura de mensajes inicializada... Esperando respuesta de controlador de comandos._");
+            await handleCommands(message, client, admin, participantes, chatId); 
+
+
             }else{
                 exec('pm2 restart mi-bot', (error, stdout, stderr) => {
                     if (error) {

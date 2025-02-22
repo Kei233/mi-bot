@@ -1,5 +1,3 @@
-// habilidades.js
-
 const fs = require('fs');
 const path = require('path');
 
@@ -14,8 +12,12 @@ function generarObjetoHabilidad(jugador, id) {
     return new Error("Error: No se pudieron leer las habilidades.");
   }
 
-  // Asegurarse de que el jugador tenga un arreglo de habilidades aprendidas
-  if (!jugador?.habilidadesAprendidas || !Array.isArray(jugador.habilidadesAprendidas)) {
+  if(!jugador){
+      console.log("hubo un error al recibir al jugador en generarObjetoHabilidad: ", jugador);
+      return;
+      }
+
+  if(!jugador.habilidadesAprendidas || !Array.isArray(jugador.habilidadesAprendidas)){
     jugador.habilidadesAprendidas = [];
   }
 
@@ -186,9 +188,6 @@ function usarHabilidad(entidad, idHabilidad) {
     }
   }
 
-  // 7. Reducir el costo de la habilidad en la estadística correspondiente de la entidad
-  // Se asume que la propiedad "costo" tiene la siguiente estructura:
-  // { "estadistica": "vida", "costo": 200 }
   if (copiaHabilidad.costo && copiaHabilidad.costo.estadistica && typeof copiaHabilidad.costo.costo === 'number') {
     const statCosto = copiaHabilidad.costo.estadistica;
     if (entidad.estadisticas && typeof entidad.estadisticas[statCosto] === 'number') {
@@ -198,8 +197,6 @@ function usarHabilidad(entidad, idHabilidad) {
     }
   }
 
-  // 8. Actualizar las estadísticas de la entidad con la intensidad de los efectos
-  // Solo se actualiza SI la habilidad está activa (propiedad "activa" en true)
   if (copiaHabilidad.activa === true && Array.isArray(copiaHabilidad.efectos)) {
     copiaHabilidad.efectos.forEach(effect => {
       const stat = effect.estadistica;
@@ -215,8 +212,6 @@ function usarHabilidad(entidad, idHabilidad) {
       }
     });
   }
-
-  // 9. Añadir la habilidad modificada al arreglo "habilidades" de la entidad.
   entidad.habilidades.push(copiaHabilidad);
 
   return `La habilidad '${copiaHabilidad.nombre}' ha sido activada para la entidad.`;
@@ -230,6 +225,11 @@ function actualizarHabilidadesActivas(entidad) {
   // Iteramos de atrás hacia adelante para poder eliminar elementos sin afectar el índice.
   for (let i = entidad.habilidades.length - 1; i >= 0; i--) {
     const habilidad = entidad.habilidades[i];
+    let resultado = '';
+
+    if(habilidad.pasiva){
+      resultado = gestorHabilidadesPasivas(entidad, habilidad);
+    }
 
     // Verificar que la habilidad esté activa
     if (!habilidad.activa) {
@@ -240,7 +240,8 @@ function actualizarHabilidadesActivas(entidad) {
       if (habilidad.duracion > 0) {
         // Disminuir la duración en 1
         habilidad.duracion--;
-      } else if (habilidad.duracion === 0) {
+
+      } else if (habilidad.duracion <= 0) {
         // Revertir los efectos aplicados
         if (Array.isArray(habilidad.efectos)) {
           habilidad.efectos.forEach(effect => {
@@ -274,16 +275,70 @@ function actualizarHabilidadesActivas(entidad) {
             duracion: (habilidad.duracion / 2) + contador,
             buff: false
           }
-          atacante.estadisticas.fuerza -= nuevaIntensidad;
-          atacante.estadisticas.agilidad -= nuevaIntensidad;
-          atacante.estadisticas.mana -= nuevaIntensidad;
-          atacante.estadisticas.magia -= nuevaIntensidad;
+          entidad.modificadoresTemp.push(debilitador);
+          entidad.estadisticas.fuerza -= nuevaIntensidad;
+          entidad.estadisticas.agilidad -= nuevaIntensidad;
+          entidad.estadisticas.mana -= nuevaIntensidad;
+          entidad.estadisticas.magia -= nuevaIntensidad;
         }
         
         entidad.habilidades.splice(i, 1);
       }
     }
   }
+}
+
+function gestorHabilidadesPasivas(entidad, habilidad){
+  try{
+  if(!entidad || !habilidad){
+    console.log("Hubo un error en el gestor de habilidades pasivas.");
+    return;
+  }
+
+  const condicion = habilidad.pasiva.nombre;
+
+  if(!condicion){
+    console.log("error al obtener la condición de la habilidad pasiva.");
+    return;
+  }
+
+  let mensajeFinal = '';
+  let modificador = {};
+
+  switch(condicion){
+
+    case 'perseverancia':
+
+    const nuevaIntensidad = Math.round(entidad.estadisticas.magia / 10) + Math.round(entidad.estadisticas.fuerza / 10) + 100 + habilidad.pasiva.intensidad;
+
+    if(habilidad.tipo === 'fisico'){
+      entidad.estadistica.fuerza += nuevaIntensidad;
+    }else if(habilidad.tipo === 'magico'){
+      entidad.estadistica.magia += nuevaIntensidad;
+    }
+    modificador = {
+      estadistica: `${habilidad.tipo === 'fisico' ? "fuerza" : "magia"}`,
+      intensidad: nuevaIntensidad,
+      duracion: habilidad.duracion,
+      buff: true
+      }
+      
+      entidad.modificadoresTemp.push(modificador);
+
+    mensajeFinal += `_*¡${entidad.nombre} ha recibido demasiado daño, pero su habilidad perseverancia lo mantiene en el juego. ¡Estadisticas aumentadas en ${nuevaIntensidad}`
+    break;
+
+
+    default: 
+    mensajeFinal += "_No se encontro la condición!_";
+    break;
+  }
+
+  return mensajeFinal;
+
+}catch(err){
+  console.log("Hubo un error en el gestor de habilidades pasivas: ", err, err.stack);
+}
 }
 
 // Exportamos las funciones para poder usarlas en otros módulos.

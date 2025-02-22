@@ -238,6 +238,15 @@ async function registrarPersona(numero, nombre, dinero, fuerza, agilidad, vida, 
         adjudicados: []
     };
 
+    if(fuerza + agilidad > 750){
+        nuevoRegistro.habilidades.push(1);
+    }else if(mana + magia > 750){
+        nuevoRegistro.habilidades.push(2);
+    }else{
+        const prob = Math.random * 100;
+        prob >= 50 ? nuevoRegistro.habilidades.push(1) : nuevoRegistro.habilidades.push(2);
+    }
+
     console.log("Retornando nuevo registro.");
     return nuevoRegistro;
 }

@@ -3,13 +3,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { exec } = require('child_process');
 const { registrarPersona, cargarRegistros, guardarRegistros, eliminarRegistro} = require('./registro.js');
-const { buscarObjetivo, realizarAtaque, guardarObjetivo, procesarTurno, actualizarModificadoresTemporales, mensajeDropeo, generarArmaAleatoria, calcularDistancia, cambiarFaseArma, mostrarEstadisticasArma } = require('./RPG/combate.cjs');
+const { buscarObjetivo, realizarAtaque, guardarObjetivo, procesarTurno, actualizarModificadoresTemporales, mensajeDropeo, calcularDistancia, mostrarEstadisticasArma } = require('./RPG/combate.cjs');
 const { crearCriatura, mostrarEstadisticasCriatura, cargarCriaturas, guardarCriaturas } = require('./RPG/criaturas.js');
 const {aprenderHechizo, cargarHechizos, lanzarHechizo } = require('./RPG/hechizos.js');
 // const { comprarObjeto, rerollTienda, reiniciarTienda, leerTienda, mostrarTienda, calcularPrecio} = require('./RPG/tienda&Venta.js');
 const { handleAutoCombat } = require('./autoCombatRole.js');
 const { spawnC, generarMision } = require('./spawn.js');
 const { Mundo } = require('./Mundo.js');
+const { generarArmaAleatoria, cambiarFaseArma, armaTransformable } = require('./RPG/armas.js');
 const { leerHabilidades, usarHabilidad, actualizarHabilidadesActivas } = require('./RPG/habilidades.js');
 
 
@@ -28,7 +29,7 @@ async function handleCommands(message, client, admin, participantes, chat) {
         await casinoCommands(message, client, admin, participantes, chat);
     }
     
-    if(content.includes('#init')){
+    if(content.includes('#init') || content.includes('#adm-request')){
         try{
         await message.reply("_Lectura de comandos correcta. Bot funcionando correctamente._");
         console.log("info:", message);
@@ -1071,7 +1072,7 @@ const nombre = registros.find(r => r.nombre === nombrepersona);
 
 if(content.includes('#saludo')){
     try {
-        const texto = await leerArchivos('saludo2.txt');
+        const texto = await leerArchivos('index/saludo2.txt');
         message.reply(texto);
     } catch (error) {
         console.error('Error al leer el archivo de texto:', error.message);
@@ -1081,11 +1082,11 @@ if(content.includes('#saludo')){
 
 if(content.includes('#infobot')) {
     try {
-        const texto = await leerArchivos('texto2.txt');
+        const texto = await leerArchivos('index/texto2.txt');
         message.reply(texto);
     } catch (error) {
         console.error('Error al leer el archivo de texto:', error.message);
-        await message.reply('_Hubo un error al cargar los comandos.._');
+        await message.reply('_Hubo un error al cargar los comandos._');
     }
 } //check
 
@@ -1580,7 +1581,7 @@ if(content.includes('#loot')){
     }
     let mensaje = '';
 
-    let criatura = crearCriatura("Criatura_X", 'C');
+    let criatura = crearCriatura("Criatura_X", 'S');
 
     if(criatura === 'existe'){
         const criaturas = cargarCriaturas();
@@ -1887,15 +1888,13 @@ function isAdmin(num, admin, participantes) {
     return false;
 }
 
-function calcularProbabilidadExito(atacante, objetivo, probabilidadAumentada, esHechizo) {
-    // 1. Verificar e inicializar el objeto de distancia entre atacante y objetivo.
-    // Se asume que cada entidad posee (o se le asigna) una propiedad "distancia" que es un arreglo de objetos { nombre, distancia }.
+function calcularProbabilidadExito(atacante, objetivo, probabilidadAumentada = 0, esHechizo) {
+    // 1. Inicializar la propiedad "distancia" si no existe.
     if (!atacante.distancia) {
       atacante.distancia = [];
     }
-
+  
     let registroDistancia = atacante.distancia.find(item => item.nombre === objetivo.nombre);
-    
     if (!registroDistancia) {
       let distInicial = 0;
       if (esHechizo) {
@@ -1910,56 +1909,43 @@ function calcularProbabilidadExito(atacante, objetivo, probabilidadAumentada, es
       registroDistancia = { nombre: objetivo.nombre, distancia: distInicial };
       atacante.distancia.push(registroDistancia);
     }
-
+  
+    // Para ataques físicos (no hechizos) se mantiene la lógica de distancia.
     if (!esHechizo) {
-
+      // Ataques cuerpo a cuerpo: si el atacante no está a la misma distancia que el objetivo, falla.
       if (!atacante.armaPrincipal || atacante.armaPrincipal.tipoAtaque === "Melee") {
         if (registroDistancia.distancia > 0) {
           return 0;
         }
       }
-
+      // Ataques a distancia: si se está fuera del rango del arma, falla el ataque.
       if (atacante.armaPrincipal && atacante.armaPrincipal.tipoAtaque === "distancia") {
-        // Si la distancia real es mayor que la distancia máxima del arma (fuera de rango), falla el ataque.
         if (registroDistancia.distancia > atacante.armaPrincipal.distancia) {
           return 0;
         }
-
         let probabilidad = (atacante.estadisticas.agilidad)
           - (atacante.armaPrincipal.distancia - registroDistancia.distancia) * 10
           + (atacante.estadisticas.precision || 0);
         return Math.max(0, Math.min(100, probabilidad));
       }
     }
-
+  
+    // Para hechizos (o en casos que no se resolvieron con las condiciones anteriores)
+    // utilizamos una fórmula basada en la proporción de agilidad.
     const agilidadAtacante = atacante.estadisticas.agilidad || 0;
     const agilidadObjetivo  = objetivo.estadisticas.agilidad || 0;
-    const probabilidadA     = probabilidadAumentada || 0;
-  
-    // Regla especial: si la agilidad del atacante es el doble (o más) que la del objetivo,
-    // o si el atacante ataca a sí mismo, el éxito es garantizado.
-    if (agilidadAtacante >= 2 * agilidadObjetivo || atacante.nombre === objetivo.nombre) {
-      return 100;
-    }
-    // Regla especial: si la agilidad del objetivo es el doble (o más) que la del atacante
-    // y no hay bonificación, el ataque falla.
-    if (agilidadObjetivo >= 2 * agilidadAtacante && probabilidadA === 0) {
-      return 0 + probabilidadAumentada;
-    }
-  
-    const relacionAgilidad = agilidadAtacante / agilidadObjetivo;
-    let probabilidad;
-    if (relacionAgilidad === 1) {
-      probabilidad = 50;
-    } else if (relacionAgilidad > 1) {
-      // Si el atacante es más ágil: escalar hacia 100%
-      probabilidad = 50 + ((relacionAgilidad - 1) / 1) * 50;
+    
+    // Evitar división por cero: si ambas agilidad son 0, se asigna una probabilidad base de 50.
+    let probabilidadBase;
+    if (agilidadAtacante === 0 && agilidadObjetivo === 0) {
+      probabilidadBase = 50;
     } else {
-      // Si el objetivo es más ágil: escalar hacia 0%
-      probabilidad = 50 - ((1 - relacionAgilidad) / 1) * 50;
+      probabilidadBase = (agilidadAtacante / (agilidadAtacante + agilidadObjetivo)) * 100;
     }
     
-    return Math.max(0, Math.min(100, probabilidad + probabilidadA));
+    // Se suma el bonus (si lo hay) y se limita el resultado entre 0 y 100.
+    const probabilidadFinal = Math.max(0, Math.min(100, probabilidadBase + probabilidadAumentada));
+    return probabilidadFinal;
   }
   
 

@@ -119,7 +119,7 @@ function handleAutoCombat(datos, tipo) {
     
         if(fallosC === intentosC){
             if(contraataques.intentos >= 3){
-                mensajeRol += `_La criatura lanza un total de (${contraataques.intentos}) ataques pero cada uno de ellos falla por completo! ¡La velocidad de ${jugador.nombre} es claramente superior!*_`;
+                mensajeRol += `_*La criatura lanza un total de (${contraataques.intentos}) ataque(s) pero cada uno falla por completo! ¡La velocidad de ${jugador.nombre} es claramente superior!*_`;
             }else{
                 if(contraataques.intentos === 2){
                     `_*La criatura lanza un par de golpes, pero falla totalmente en su intento por golpear a ${jugador.nombre}! ¡La agilidad es una clara determinante en está pelea!*_`
