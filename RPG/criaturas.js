@@ -262,12 +262,11 @@ async function dropeo(atacante, objetivo) {
 
     // Extraer datos del loot
     const dinero = loot.dinero;
-    const objetosGanados = loot.objetos;
-    console.log(objetosGanados);
+    jugador.inventario.push(...loot.objetos);
 
     // **Lógica del drop de arma (si la criatura tenía arma)**
     if (objetivo?.armaPrincipal) {
-        // Calcular la probabilidad basada en idRango (de 0 a 6)
+        
         const probabilidadArma = Math.max(10, 100 - objetivo.idRango * 15); // Máximo 100%, mínimo 10%
         if (Math.random() * 100 < probabilidadArma) {
             objetosGanados.push({
@@ -286,7 +285,7 @@ async function dropeo(atacante, objetivo) {
     const experienciaGanada = estadisticas.experiencia;
     atacante.experiencia += experienciaGanada;
 
-    let experienciaRequerida = atacante.nivel * 100;
+    let experienciaRequerida = atacante.nivel * 1000;
     while (atacante.experiencia >= experienciaRequerida) {
         subirnivel = true;
         atacante.experiencia -= experienciaRequerida;
@@ -308,28 +307,7 @@ async function dropeo(atacante, objetivo) {
         atacante.contadorSpawn--;
     }
 
-    // **Agregar objetos al inventario**
-    if (objetosGanados.length > 0) {
-        objetosGanados.forEach(objeto => {
-            const existente = atacante.inventario.find(item => item.nombre === objeto.nombre);
-            
-            if (objeto.tipo === 'generarArma') {
-                const armaNueva = generarArmaAleatoria(criatura.idRango, rango);
-                atacante.inventario.push(armaNueva);
-            } else {
-                if (existente) {
-                    existente.cantidad += 1;
-                } else {
-                    atacante.inventario.push({
-                        nombre: objeto.nombre,
-                        tipo: objeto.tipo,
-                        efectos: objeto.efectos,
-                        cantidad: 1
-                    });
-                }
-            }
-        });
-    }
+    
 
     if(criatura?.adjudicada){
         registros.forEach(registro => {

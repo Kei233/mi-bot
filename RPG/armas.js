@@ -119,8 +119,9 @@ function generarArmaAleatoria(numero, rangoForzado, indicador, tipoArma, adminAr
         daño: dañoBase,
         equipada: false,
         modificadores: [],
+        Estados: [],
         efectos: [],
-        modificadoresArma: []
+        autoMejora: false
     };
 
     // Cargar los modificadores y efectos desde el archivo JSON o fuente externa

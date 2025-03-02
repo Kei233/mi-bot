@@ -156,7 +156,10 @@ function realizarAtaque(atacante, objetivo) {
             efectosAplicados,
             critico,
             derrotado: true,
-            huida: false
+            huida: {
+              activo: false,
+              duracion: 2
+            }
         };
     }
 
@@ -168,15 +171,8 @@ function realizarAtaque(atacante, objetivo) {
         const pHuida = Math.max(0, Math.random() * ((objetivo.estadisticas.vida / objetivo.estadisticas.vidaMax) * 100) - (objetivo.idRango * 15));
         const numeroR = Math.random() * 100;
         if(numeroR < pHuida){
-            objetivo.huida = true;
-            objetivo.estadisticas.autoCombat = false;
-
-        modificadorHuida = {
-            estadistica: "huida",
-            intensidad: 0,
-            duracion: 1,
-            buff: false
-        }}
+            objetivo.huida.activo = true;
+            objetivo.estadisticas.autoCombat = false;}
 
         if(!objetivo.modificadoresTemp){
             objetivo.modificadoresTemp = [];
@@ -208,6 +204,8 @@ async function guardarObjetivo(tipo, datos) {
     if (indice !== -1) {
         objetivos[indice] = datos;
         guardarFunc(objetivos);
+    }else{
+      console.error("No se encontro el objeto a guardar.");
     }
 }
 
@@ -341,23 +339,7 @@ async function actualizarModificadoresTemporales(objetivo) {
           console.warn("Modificador inválido:", mod);
           return false;
         }
-  
-        // Caso especial para el modificador de 'huida'
-        if (mod.estadistica === 'huida' && objetivo.estadisticas.vida > 0) {
-          if (mod.duracion > 0) {
-            mod.duracion--;
-            return true;
-          } else {
-            // Buscar y eliminar la criatura correspondiente de la lista global
-            const indice = criaturas.findIndex(cr => cr.nombre === objetivo.nombre);
-            if (indice !== -1) {
-              criaturas.splice(indice, 1);
-              guardarCriaturas(criaturas);
-            }
-            return false;
-          }
-        }
-  
+        
         // Mantener el modificador si proviene del arma equipada
         if (mod.fuente && mod.fuente === armaEquipada || mod.fuente === 'arma'){
           console.log(`El modificador de ${mod.estadistica} de ${armaEquipada} se mantiene al estar asociado al arma equipada.`);

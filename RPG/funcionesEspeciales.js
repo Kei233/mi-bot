@@ -3,7 +3,7 @@ const { mostrarEstadisticasPersonaje } = require('../hCommands.js');
 const { cargarModificadoresEfectos } = require('./combate.cjs');
 const { cargarRegistros } = require("../registro.js");
 
-function handleEspeciales(hechizo, objetivo, atacante) {
+async function handleEspeciales(hechizo, objetivo, atacante) {
     
     console.log("Hechizo entrando en funciones especiales");
 
@@ -114,7 +114,7 @@ function handleEspeciales(hechizo, objetivo, atacante) {
                             mensajeFinal += `_¡Este hechizo no puede ver las estadisticas de un jugador de mayor nivel que tú!_`
                         }else{
                             mensajeFinal += `_Estadisticas del jugador:_\n\n`;
-                            mensajeFinal += mostrarEstadisticasPersonaje(objetivo);
+                            mensajeFinal +=  mostrarEstadisticasPersonaje(objetivo);
                         }
                     }
                 break;

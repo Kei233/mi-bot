@@ -5,6 +5,7 @@
     "activa": true,
     "tipo": "fisico",
     "pasiva": null,
+    "estados": [],
     "efectos": [
         {
             "estadistica": "fuerza",
@@ -30,6 +31,7 @@
     "activa": true,
     "tipo": "magico",
     "pasiva": null,
+    "estados": [],
     "efectos": [
         {
             "estadistica": "mana",
@@ -59,6 +61,7 @@
         "intensidad": 200,
         "estadistica": "vida"
     },
+    "estados": [],
     "efectos": [
         {
             "estadistica": "fuerza",

@@ -59,7 +59,7 @@ function handleAutoCombat(datos, tipo) {
 
                 if(exitoU === intentos-1 && intentos >= 3){
                 mensajeRol += `_*La agilidad del jugador es grandiosa, más sin embargo la criatura ${criatura.nombre} fue lo suficientemente rapida como para esquivar el ultimo ataque!*_` +
-                ` _*Sin embargo, los golpes acestados no pierden su efectividad ¡la criatura ha recibido un total de ${dañoU}!*_\n` + (Cderrotada ? `\n\n_*La criatura no lo resiste, y cae derrotada ¡Tú vences!\n\n` : ``)
+                ` _*Sin embargo, los golpes acestados no pierden su efectividad ¡la criatura ha recibido un total de ${dañoU} puntos de daño!*_\n` + (Cderrotada ? `\n\n_*La criatura no lo resiste, y cae derrotada ¡Tú vences!*_\n\n` : ``)
             }else{
                 if(exitoU >= 3 && exitoU < intentos-1){
                     mensajeRol += `_*${jugador.nombre} logra impactar varios golpes, pese que falla ${fallosU} de ellos no logran impactar a ${criatura.nombre} ¡La velocidad de ambas es pareja*_` +

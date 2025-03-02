@@ -171,40 +171,32 @@
     "spawneada": true
   },
   {
-    "nombre": "hydra",
+    "nombre": "wolf",
     "rango": "D",
     "estadisticas": {
-      "vida": 640,
-      "mana": 150,
-      "fuerza": 300,
-      "agilidad": 330,
-      "vidaMax": 2295,
-      "manaMax": 150,
-      "armadura": 0,
-      "experiencia": 445,
-      "crit": 5,
+      "vida": 2100,
+      "mana": 120,
+      "fuerza": 465,
+      "agilidad": 350,
+      "vidaMax": 2100,
+      "manaMax": 120,
+      "armadura": 55,
+      "experiencia": 474,
+      "crit": 6,
       "efectos": [],
       "isJefe": false,
       "autoCombat": true
     },
     "hechizos": [
-      7
+      3
     ],
     "idRango": 2,
     "criatura": true,
     "armaPrincipal": null,
     "adjudicada": false,
     "huida": false,
-    "modificadoresTemp": [
-      {}
-    ],
+    "modificadoresTemp": [],
     "habilidades": [],
-    "estados": [],
-    "distancia": [
-      {
-        "nombre": "kyo",
-        "distancia": 0
-      }
-    ]
+    "estados": []
   }
 ]

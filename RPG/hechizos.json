@@ -11,6 +11,7 @@
             { "nombre": "quemadura", "duracion": 3, "intensidad": 10, "probabilidad": 50 }
         ],
         "Especial": [],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "E",
         "probabilidad": 5
@@ -27,6 +28,7 @@
             { "nombre": "quemadura", "duracion": 3, "intensidad": 10, "probabilidad": 50 }
         ],
         "Especial": [],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "E",
         "probabilidad": 5
@@ -59,6 +61,7 @@
             { "nombre": "veneno", "duracion": 2, "intensidad": 20, "probabilidad": 50 }
         ],
         "Especial": [],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "E",
         "probabilidad": 5
@@ -75,6 +78,7 @@
             { "nombre": "veneno", "duracion": 2, "intensidad": 20, "probabilidad": 50 }
         ],
         "Especial": [],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "E",
         "probabilidad":10
@@ -89,6 +93,7 @@
         "costo": 20,
         "efectos": [],
         "Especial": [],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "E",
         "probabilidad": 5
@@ -124,6 +129,7 @@
             { "nombre": "quemadura", "duracion": 5, "intensidad": 15, "probabilidad": 10 }
         ],
         "Especial": [],
+        "Estados": [],
         "nivelRequerido": 2,
         "rango": "E",
         "probabilidad": 0
@@ -140,6 +146,7 @@
             { "nombre": "regeneración", "duracion": 5, "intensidad": 10, "probabilidad": 10 }
         ],
         "Especial": [],
+        "Estados": [],
         "nivelRequerido": 2,
         "rango": "E",
         "probabilidad": 5
@@ -156,6 +163,7 @@
             { "nombre": "quemadura", "duracion": 6, "intensidad": 50, "probabilidad": 80 }
         ],
         "Especial": [],
+        "Estados": [],
         "nivelRequerido": 2,
         "rango": "E",
         "probabilidad": 5
@@ -170,6 +178,7 @@
         "costo": 20,
         "efectos": [],
         "Especial": ["Detección"],
+        "Estados": [],
         "nivelRequerido": 3,
         "rango": "D",
         "probabilidad": 100
@@ -184,6 +193,7 @@
         "costo": 40,
         "efectos": [],
         "Especial": ["mejorarFuerza"],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "D",
         "probabilidad": 0
@@ -200,6 +210,7 @@
             {  "nombre": "regeneración", "duracion": 4, "intensidad": 15, "probabilidad": 5 }
         ],
         "Especial": ["Curar"],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "D",
         "probabilidad": 0
@@ -214,6 +225,7 @@
         "costo": 50,
         "efectos": [],
         "Especial": ["mejorarEstadisticas"],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "D",
         "probabilidad": 0
@@ -228,6 +240,7 @@
         "costo": 40,
         "efectos": [],
         "Especial": ["MejorarMagia"],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "D",
         "probabilidad": 0
@@ -242,6 +255,7 @@
         "costo": 40,
         "efectos": [],
         "Especial": ["Absorber"],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "D",
         "probabilidad": 0
@@ -256,6 +270,7 @@
         "costo": 80,
         "efectos": [],
         "Especial": ["MejoraArma"],
+        "Estados": [],
         "nivelRequerido": 1,
         "rango": "D",
         "probabilidad": 0
@@ -270,6 +285,7 @@
         "costo": 25,
         "efectos": [],
         "Especial": ["GolpealAlza"],
+        "Estados": [],
         "nivelRequerido": 2,
         "rango": "E",
         "probabilidad": 0
@@ -284,6 +300,7 @@
         "costo": 25,
         "efectos": [],
         "Especial": ["GolpealAlza"],
+        "Estados": [],
         "nivelRequerido": 2,
         "rango": "E",
         "probabilidad": 0
@@ -291,13 +308,14 @@
     {
         "id": 20,
         "nombre": "Adjudicar",
-        "descripcion": "_Controlas a la criatura objetivo por un 5 turnos._",
+        "descripcion": "_Controlas a la criatura objetivo por 5 turnos._",
         "dañoBase": 0,
         "intensidad": 0,
         "duracion": 5,
         "costo": 100,
         "efectos": [],
         "Especial": ["AdjudicarBajo"],
+        "Estados": [],
         "nivelRequerido": 5,
         "rango": "B",
         "probabilidad": 0

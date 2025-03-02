@@ -341,10 +341,10 @@ function gestorHabilidadesPasivas(entidad, habilidad){
 }
 }
 
-// Exportamos las funciones para poder usarlas en otros módulos.
 module.exports = {
   leerHabilidades,
   usarHabilidad,
   actualizarHabilidadesActivas,
-  generarObjetoHabilidad
+  generarObjetoHabilidad,
+  aprenderHabilidad
 };

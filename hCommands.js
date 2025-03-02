@@ -11,7 +11,7 @@ const { handleAutoCombat } = require('./autoCombatRole.js');
 const { spawnC, generarMision } = require('./spawn.js');
 const { Mundo } = require('./Mundo.js');
 const { generarArmaAleatoria, cambiarFaseArma, armaTransformable } = require('./RPG/armas.js');
-const { leerHabilidades, usarHabilidad, actualizarHabilidadesActivas } = require('./RPG/habilidades.js');
+const { usarHabilidad, actualizarHabilidadesActivas, aprenderHabilidad } = require('./RPG/habilidades.js');
 
 
 async function handleCommands(message, client, admin, participantes, chat) {
@@ -356,6 +356,16 @@ if (content.includes('#usaritem')) {
                 await message.reply(mensaje);
                 guardarRegistros(registrosG);
                 break;
+            case 'habilidad':
+                if(!item?.idHabilidad){
+                    console.log("Error. El objeto tipo habilidad no contiene id.");
+                    item.idHabilidad = 0;
+                }
+                const mensajeH = aprenderHabilidad(usuario, item.idHabilidad);
+                if(mensajeH){
+                    await message.reply(mensajeH);
+                }
+                break;
             case 'Especial':
                 if (!item.activo) {
                     item.activo = true; // Activar el objeto
@@ -373,6 +383,9 @@ if (content.includes('#usaritem')) {
             default:
                 await message.reply('_Este objeto no tiene un uso definido._');
         }
+
+        guardarObjetivo('usuario', usuario);
+
     } catch (error) {
         console.error('Error al usar el item:', error);
         await message.reply(`_Error al usar el item: ${error.message}_`);
@@ -509,6 +522,10 @@ if (content.includes('#atacar')) {
                     message.reply('_El mensaje no contiene un cuerpo válido._');
                     continue;
                 }
+            }
+
+            if(!entidad || !entidad.datos){
+                return;
             }
 
             tipo = entidad.tipo;
@@ -716,6 +733,10 @@ if (content.includes('#hechizo') || pergamino){
                 }
             }
 
+            if (!entidad || !entidad.datos) {
+                return;
+            }
+
             tipo = entidad.tipo;
             objetivo = entidad.datos;
 
@@ -784,7 +805,7 @@ if (content.includes('#hechizo') || pergamino){
                 }
             
                 // Calcular probabilidad de éxito del contraataque
-                probabilidad = calcularProbabilidadExito(objetivo, atacante, 0);
+                probabilidad = calcularProbabilidadExito(objetivo, atacante, 0, false);
                 const ataqueExitoso = Math.random() * 100 < probabilidad;
             
                 if (ataqueExitoso) {
@@ -980,7 +1001,7 @@ if (content.includes('#morder')) {
             objetivo = entidad.datos;
 
             // Calcular probabilidad de éxito del ataque
-            let probabilidad = calcularProbabilidadExito(atacante, objetivo, 0);
+            let probabilidad = calcularProbabilidadExito(atacante, objetivo, 0, false);
 
             let ataqueExitoso = Math.random() * 100 < probabilidad;
 
@@ -1102,7 +1123,7 @@ if (content.includes('#verinventario')) {
         }
     
         // Llamar a la función para obtener las estadísticas, inventario, etc.
-        const mensaje = await mostrarEstadisticasPersonaje(usuario);
+        const mensaje = mostrarEstadisticasPersonaje(usuario);
         await message.reply(mensaje);
         
     } catch (error) {
@@ -1333,32 +1354,53 @@ if(content.includes('#estado')){
 
     const registros = cargarRegistros();
     const usuario = registros.find(u => u.numero === numero);
-    let mensaje = '';
 
     if(!usuario){
         await message.reply(`_¡Jugador no encontrado! Por favor, registrate para entrar al juego._`);
         return;
     }
 
+    let mensaje = '';
+
     if(!usuario.estadisticas.efectos || usuario.estadisticas.efectos.length <= 0){
         usuario.estadisticas.efectos = [];
-        await message.reply(`_¡No tienes efectos activos por ahora!_`);
+        mensaje += `_¡No tienes efectos activos por ahora!_`
+
+    }else{
+        mensaje += `_✨ *Tus efectos actuales son:* ✨_\n\n`;
+    
+        usuario.estadisticas.efectos.forEach((efecto, index) => {
+            mensaje += `_🎯 *${index + 1}. ${efecto.nombre}*_\n`;
+            mensaje += `_   📅 Duración restante: ${efecto.duracion} turnos._\n`;
+            mensaje += `_   🔹 Intensidad: ${efecto.intensidad || 'No aplica'}._\n\n`;
+        });
+    
+        mensaje += `_💠 ¡Mantente alerta, los efectos pueden ser decisivos en combate! 💠_`;
+    }
+
+    if(!usuario.estados || usuario.estados.length <= 0){
+        mensaje += `No tienes estados activos ahora.`;       
+    }else{
+        mensaje += `_..._`
+    }
+
+
+    await message.reply(mensaje.trim());
+
+}
+
+if(content.includes('#huida')){
+
+    if(!esAdmin){
+        await message.reply("_No tienes permisos para usar este comando._");
         return;
     }
 
-    if (usuario.estadisticas.efectos.length > 0) {
-        mensaje += `✨ *Tus efectos actuales son:* ✨\n\n`;
-    
-        usuario.estadisticas.efectos.forEach((efecto, index) => {
-            mensaje += `🎯 *${index + 1}. ${efecto.nombre}*\n`;
-            mensaje += `   📅 Duración restante: ${efecto.duracion} turnos\n`;
-            mensaje += `   🔹 Intensidad: ${efecto.intensidad || 'No aplica'}\n\n`;
-        });
-    
-        mensaje += `💠 ¡Mantente alerta, los efectos pueden ser decisivos en combate! 💠`;
-    }
+    const {tipo, criatura } = buscarObjetivo(content.split());
 
-    await message.reply(mensaje.trim());
+    if(!criatura.huida){
+        criatura.huida = true;
+    }
 
 }
 
@@ -1375,7 +1417,7 @@ if(content.includes('#estado')){
 
 if(content.includes('#verhechizos')){
 
-let mensaje = "_=== *Hechizos del Jugador* ===_\n\n";
+let mensaje = "_[ *Hechizos del Jugador* ]_\n\n";
 
 const registros = cargarRegistros();
 const jugador = registros.find(r => r.numero === numero);
@@ -1395,18 +1437,18 @@ hechizosJugador.forEach(id => {
     if (hechizo){
         mensaje += `=== *Hechizo:* _${hechizo.nombre}_ / *ID:* _${hechizo.id}_ ===\n`;
         mensaje += `\n_${hechizo.descripcion}_\n`;
-        mensaje += `*Daño Base:* _${hechizo.dañoBase}_\n`;
-        mensaje += `*Intensidad:* _${hechizo.intensidad}_\n`;
-        mensaje += `*Duración:* _${hechizo.duracion} turnos_\n`;
-        mensaje += `*Costo de maná:* _${hechizo.costo}_\n`;
-        mensaje += `*Nivel Requerido:* _${hechizo.nivelRequerido}_\n`;
-        mensaje += `*Rango:* _${hechizo.rango}_\n`;
+        mensaje += `*Daño Base:* _${hechizo.dañoBase}._\n`;
+        mensaje += `*Intensidad:* _${hechizo.intensidad}._\n`;
+        mensaje += `*Duración:* _${hechizo.duracion} turnos._\n`;
+        mensaje += `*Costo de maná:* _${hechizo.costo}._\n`;
+        mensaje += `*Nivel Requerido:* _${hechizo.nivelRequerido}._\n`;
+        mensaje += `*Rango:* _${hechizo.rango}._\n`;
         mensaje += `*Probabilidad Aumentada:* _${hechizo.probabilidad || 0}%_\n`;
         
         if (hechizo.efectos.length > 0) {
             mensaje += `\n*Efectos:*\n`;
             hechizo.efectos.forEach((efecto, index) => {
-                mensaje += `  _*${index + 1}. ${efecto.nombre}* -- Intensidad: ${efecto.intensidad}, Duración: ${efecto.duracion} turnos_\n`;
+                mensaje += `  _*${index + 1}. ${efecto.nombre}* -- Intensidad: ${efecto.intensidad} , Duración: ${efecto.duracion} turnos_\n`;
             });
         } else {
             mensaje += "*Efectos:* _Ninguno_\n";
@@ -1471,7 +1513,6 @@ if(content.includes('#descansar')){
         usuario.distancia = [];
     }
     guardarObjetivo('usuario', usuario);
-    guardarRegistros(registros);
 
     await message.reply(`_El jugador ha descansado correctamente. Vida y maná recuperados. Efectos de estado eliminados._`);
 
@@ -1576,7 +1617,7 @@ if(content.includes('#arma')){
 if(content.includes('#loot')){
 
     if(!esAdmin){
-        await message.reply(`No tienes permisos para usar este comando.`);
+        await message.reply(`_No tienes permisos para usar este comando._`);
         return;
     }
     let mensaje = '';
@@ -1680,7 +1721,6 @@ if (content.includes('#hab')) {
     }
 }
 
-
 if(content.includes('#ahechizo')){
 
     if(!esAdmin){
@@ -1725,7 +1765,6 @@ if(content.includes('#verarma')){
 
 }
 
-
 if(content.includes('#LunaRoja')){
 
     if(!esAdmin){
@@ -1748,6 +1787,10 @@ if(content.includes('#callatehades')){
     message.reply('_Si, *callate* hades._');
 }
 
+if(content.includes('#nalguear') || content.includes('#nalgada') || content.includes('#spanking')){
+    await message.reply("_*La nalguea*_");
+}
+
 if(content.includes('#abrazo') || content.includes('#abrazar') || content.includes('#hug')){
     await message.reply("_*/Abrazo*_");
 }
@@ -1764,6 +1807,7 @@ if(content.includes('#funa')){
     await message.reply("_*Le abre un hilo en Twitter*_");
 }
 
+
 async function procesarResultados(objetivo, atacante, tipo, registros) {
     try {
         if(atacante.estadisticas.vida > 0){
@@ -1775,7 +1819,7 @@ async function procesarResultados(objetivo, atacante, tipo, registros) {
 
         const registrosN = registros || cargarRegistros();
         guardarRegistros(registrosN); // Asegura que los registros estén actualizados
-        await guardarObjetivo(tipo, objetivo.criatura); // Guarda la información del objetivo actualizado
+        await guardarObjetivo('criatura', objetivo.criatura); // Guarda la información del objetivo actualizado
         const criaturas = cargarCriaturas();
 
         console.log("Codigo entrando correctamente en procesar resultado");
@@ -1787,12 +1831,28 @@ async function procesarResultados(objetivo, atacante, tipo, registros) {
             await message.reply(mensajeRol.trim());
         }
 
+        if(!atacante.habilidades){
+            atacante.habilidades = [];
+        }
+
+        if(!objetivo.habilidades){
+            objetivo.habilidades = [];
+        }
+
         if(atacante.habilidades.length > 0){
             actualizarHabilidadesActivas(atacante);
         }
         if(objetivo.habilidades.length > 0){
             actualizarHabilidadesActivas(objetivo);
         }
+
+        if(!atacante.estados){
+            atacante.estados = [];
+        }
+        if(!objetivo.estados){
+            objetivo.estados = [];
+        }
+
 
         guardarRegistros(registrosN);
         guardarCriaturas(criaturas);
@@ -1802,14 +1862,15 @@ async function procesarResultados(objetivo, atacante, tipo, registros) {
             await message.reply(dropeo);
         }
 
+        await guardarObjetivo('usuario', atacante || objetivo.jugador);
+
         if(objetivo?.contraataques?.muerto){
             await eliminarRegistro(objetivo.jugador);
             guardarRegistros(registrosN);
         }
 
-
     } catch (error) {
-        console.error(`Error en procesarResultados: ${error.stack}`);
+        console.error(`Error en procesarResultados: ${error}, ${error.stack}`);
         await message.reply('_Hubo un error al procesar los resultados del ataque._');
     }
 }
@@ -1836,7 +1897,7 @@ async function leerArchivos(archivo){
 
 function mostrarEstadisticasPersonaje(personaje) {
     const stats = personaje.estadisticas;
-    const xpMaxima = personaje.nivel * 100;
+    const xpMaxima = personaje.nivel * 1000;
 
     // Mensaje de estadísticas generales
     let mensaje = `*${personaje.nombre} - Nivel: ${personaje.nivel}*\n` +
@@ -1847,8 +1908,9 @@ function mostrarEstadisticasPersonaje(personaje) {
                   `*Maná*: ${stats.mana} MP\n` +
                   `*Magia*: ${stats.magia}\n` +
                   `*Armadura*: ${personaje.armadura}\n` +
-                  `*Experiencia*: ${personaje.experiencia} | ${xpMaxima}\n` +
-                  `*Dinero*: ${personaje.dinero}\n` +
+                  `*Experiencia*: _${personaje.experiencia} | ${xpMaxima}_\n` +
+                  `*Dinero*: _${personaje.dinero}_\n` +
+                  `${(jugador.puntosPorDistribuir > 0 ? `*Puntos por Distribuir*: _${jugador.puntosPorDistribuir}_\n` : '')}` +
                   `-----------------------------------\n`;
 
     // Inventario
@@ -1888,10 +1950,14 @@ function isAdmin(num, admin, participantes) {
     return false;
 }
 
-function calcularProbabilidadExito(atacante, objetivo, probabilidadAumentada = 0, esHechizo) {
+function calcularProbabilidadExito(atacante, objetivo, probabilidadAumentada, esHechizo) {
     // 1. Inicializar la propiedad "distancia" si no existe.
     if (!atacante.distancia) {
       atacante.distancia = [];
+    }
+
+    if(!probabilidadAumentada){
+        probabilidadAumentada = 0;
     }
   
     let registroDistancia = atacante.distancia.find(item => item.nombre === objetivo.nombre);
@@ -1930,11 +1996,11 @@ function calcularProbabilidadExito(atacante, objetivo, probabilidadAumentada = 0
       }
     }
   
-    // Para hechizos (o en casos que no se resolvieron con las condiciones anteriores)
-    // utilizamos una fórmula basada en la proporción de agilidad.
+    // Para hechizos (o casos en los que se use la agilidad para calcular la probabilidad)
+    // Se utiliza una fórmula basada en la proporción de agilidad.
     const agilidadAtacante = atacante.estadisticas.agilidad || 0;
     const agilidadObjetivo  = objetivo.estadisticas.agilidad || 0;
-    
+  
     // Evitar división por cero: si ambas agilidad son 0, se asigna una probabilidad base de 50.
     let probabilidadBase;
     if (agilidadAtacante === 0 && agilidadObjetivo === 0) {
@@ -1942,11 +2008,15 @@ function calcularProbabilidadExito(atacante, objetivo, probabilidadAumentada = 0
     } else {
       probabilidadBase = (agilidadAtacante / (agilidadAtacante + agilidadObjetivo)) * 100;
     }
-    
-    // Se suma el bonus (si lo hay) y se limita el resultado entre 0 y 100.
-    const probabilidadFinal = Math.max(0, Math.min(100, probabilidadBase + probabilidadAumentada));
+  
+    // Sumar el bonus (si lo hay) y limitar el resultado entre 0 y 100.
+    let probabilidadFinal = Math.max(0, Math.min(100, probabilidadBase + probabilidadAumentada));
+  
+    if (probabilidadFinal > 0 && (100 - probabilidadFinal) > 45) {
+      probabilidadFinal = 55;
+    }
+  
     return probabilidadFinal;
   }
-  
 
 module.exports = { handleCommands, mostrarEstadisticasPersonaje };
